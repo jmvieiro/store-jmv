@@ -26,7 +26,7 @@ export const ItemListContainer = ({ greeting }) => {
   ];
   return (
     <>
-      <section className="container-fluid">
+      <section className="container">
         <h1>{greeting}</h1>
         <CardComponent data={product} />
       </section>

@@ -1,16 +1,34 @@
-// import { CardComponent } from "../components/CardComponent";
+import { CardComponent } from "../components/CardComponent";
 
-export const ItemListContainer = ({greeting}) => {
-  // const product = [
-  //   { id: 1, name: "Zatapatilla", price: 150 },
-  //   { id: 2, name: "Campera", price: 250 },
-  // ];
+export const ItemListContainer = ({ greeting }) => {
+  const product = [
+    {
+      id: 1,
+      category: "Indumentaria",
+      title: "Zatapatilla",
+      text: "Modelo deportiva",
+      price: 8250,
+    },
+    {
+      id: 2,
+      category: "Indumentaria",
+      title: "Remera",
+      text: "Modelo deportiva",
+      price: 2500,
+    },
+    {
+      id: 3,
+      category: "Indumentaria",
+      title: "Patalón",
+      text: "Modelo deportiva",
+      price: 3500,
+    },
+  ];
   return (
     <>
-      <section>
+      <section className="container-fluid">
         <h1>{greeting}</h1>
-        {/* <CardComponent data={product[0]} /> */}
-        {/* <CardComponent data={product[1]} title={'Titulo'}/> */}
+        <CardComponent data={product} />
       </section>
     </>
   );

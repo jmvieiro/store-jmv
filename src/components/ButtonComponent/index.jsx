@@ -1,11 +1,9 @@
-import "./styles.css";
+import Button from "react-bootstrap/Button";
 
-export const ButtonComponent = ({ text, isActive }) => {
+export const ButtonComponent = ({ text, id }) => {
   return (
     <>
-      <button style={{ backgroundColor: isActive ? 'green' : 'red' }}>
-        {text}
-      </button>
+      <Button type="button" variant="primary" >{text}</Button>
     </>
   );
 };

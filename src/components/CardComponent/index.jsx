@@ -1,18 +1,28 @@
 import { ButtonComponent } from "../ButtonComponent";
+import Card from "react-bootstrap/Card";
+import CardColumns from "react-bootstrap/CardColumns";
 
-import "./styles.css";
-
-export const CardComponent = ({ data, title, children }) => {
-  // function saludar() {
-  //   alert("hola");
-  // }
+export const CardComponent = ({ data }) => {
   return (
-    <div className="card">
-      <h2>{children}</h2>
-      <h1>{data.name}</h1>
-      <strong>{data.price}</strong>
-      <strong>{title}</strong>
-      <ButtonComponent text={'Agregar al carrito'} isActive={true}/>
-    </div>
+    <>
+      <CardColumns>
+        {data.map(({ category, title, text, price, id }) => (
+          <Card
+            key={id}
+            id={id}
+            text={"white"}
+            className="bg-dark mb-2 p-3 text-center"
+          >
+            <Card.Header>{category}</Card.Header>
+            <Card.Body>
+              <Card.Title>{title}</Card.Title>
+              <Card.Text>{text}</Card.Text>
+              <Card.Text>$ {price}</Card.Text>
+              <ButtonComponent text="Agregar al carrito" id={id} />
+            </Card.Body>
+          </Card>
+        ))}
+      </CardColumns>
+    </>
   );
 };

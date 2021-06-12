@@ -8,7 +8,13 @@ import logo from "./logo.png"; // with import
 export const NavBarComponent = () => {
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar
+        className="fixed-top"
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+      >
         <div className="container">
           <img
             src={logo}

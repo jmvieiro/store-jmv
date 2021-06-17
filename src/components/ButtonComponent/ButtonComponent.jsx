@@ -24,11 +24,7 @@ export const ButtonComponent = ({
         disabled={disabled}
         block={block}
       >
-        {textOnlyXs ? (
-          <TextOnlyXs text={_text}/>
-        ) : (
-          _text
-        )}
+        {textOnlyXs ? <TextOnlyXs text={_text} /> : _text}
         {icon}
       </Button>
     </>

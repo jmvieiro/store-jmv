@@ -6,16 +6,18 @@ import { ItemListContainer } from "./containers/ItemListContainer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-
 library.add(fab, fas);
 
 function App() {
-  return (
+   return (
     <>
       <header>
         <NavBar />
       </header>
-      <ItemListContainer greeting={"Bienvenidos"} />
+      <section className="container" style={{ marginTop: "4rem" }}>
+        <ItemListContainer greeting={"Bienvenidos"} />
+      </section>
+      <footer></footer>
     </>
   );
 }

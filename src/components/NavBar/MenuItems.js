@@ -12,10 +12,6 @@ export const MenuItems = [
         name: "Moda",
     },
     {
-        href: "#libreria",
-        name: "Librería",
-    },
-    {
         href: "#accesorios",
         name: "Accesorios",
     },

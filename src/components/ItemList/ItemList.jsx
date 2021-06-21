@@ -1,7 +1,7 @@
 import { Row, Container } from "react-bootstrap";
 import { Item } from "../Item/Item";
 
-export const ItemList = ({ data }) => {
+export const ItemList = ({ data, onAdd }) => {
   return (
     <Container>
       <Row>
@@ -13,6 +13,7 @@ export const ItemList = ({ data }) => {
             price={price}
             img={img}
             stock={stock}
+            onAdd={onAdd}
           />
         ))}
       </Row>

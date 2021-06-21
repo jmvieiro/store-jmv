@@ -6,3 +6,8 @@
 .dropdown-menu {
   background-color: $base-navbar;
 }
+.nav-link {
+  &:hover {
+    color: $base-background !important;
+  }
+}

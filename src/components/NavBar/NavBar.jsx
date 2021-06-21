@@ -1,12 +1,12 @@
 import { NAME_APP } from "../../utils/const";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+import { Navbar, Nav } from "react-bootstrap";
 import { CartWidget } from "../CartWidget/CartWidget";
 import logo from "./logo.png"; // with import
 import "./styles.scss";
 import { MenuItems } from "./MenuItems";
+import { Auth } from "../Auth/Auth";
 
-export const NavBar = () => {
+export const NavBar = ({ cart }) => {
   return (
     <Navbar className="fixed-top" collapseOnSelect expand="lg">
       <div className="container">
@@ -19,16 +19,19 @@ export const NavBar = () => {
         />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto">
+          <Nav className="ml-2">
             {MenuItems.map((item) => {
               return (
-                <Nav.Link key={item.href} href={item.href}>
+                <Nav.Link href={item.href} key={item.href}>
                   {item.name}
                 </Nav.Link>
               );
             })}
+          </Nav>
+          <Nav className="ml-auto">
+            <Auth />
             <Nav.Link href="#cart">
-              <CartWidget />
+              <CartWidget cantidad={cart} />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

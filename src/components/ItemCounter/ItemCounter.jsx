@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import "./styles.scss";
 
-export const ItemCounter = ({ stock, initial }) => {
+export const ItemCounter = ({ stock, initial, onAdd }) => {
   const [counter, setCounter] = useState(initial);
   const sumar = () => {
     if (counter < stock) setCounter(counter + 1);
@@ -16,9 +16,6 @@ export const ItemCounter = ({ stock, initial }) => {
     let value = e.target.value;
     if (value > 1 && value < stock) setCounter(value);
     else setCounter(stock);
-  };
-  const onAdd = () => {
-    alert(`Agregaste ${counter} artículos al carrito de compras.`);
   };
   return (
     <Row>
@@ -56,7 +53,9 @@ export const ItemCounter = ({ stock, initial }) => {
                   title="Agregar al carrito"
                 />
               }
-              onClick={onAdd}
+              onClick={() => {
+                onAdd(counter);
+              }}
               block={true}
               textOnlyXs={true}
             />

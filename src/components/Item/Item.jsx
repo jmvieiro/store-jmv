@@ -3,7 +3,7 @@ import { ItemCounter } from "../ItemCounter/ItemCounter";
 import accounting from "accounting";
 import "./styles.scss";
 
-export const Item = ({ category, title, price, stock, img }) => {
+export const Item = ({ category, title, price, stock, img, onAdd }) => {
   return (
     <Card text="white" className="mb-2 p-3 col-4 align-items-stretch">
       <Card.Header>
@@ -33,7 +33,7 @@ export const Item = ({ category, title, price, stock, img }) => {
         </Row>
       </Card.Body>
       <Card.Footer>
-        <ItemCounter stock={stock} initial={1} />
+        <ItemCounter stock={stock} initial={1} onAdd={onAdd} />
       </Card.Footer>
     </Card>
   );

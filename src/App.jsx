@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { NavBar } from "./components/NavBar/NavBar";
@@ -10,15 +11,21 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fab, fas);
 
 function App() {
+  const [cart, setCart] = useState(0);
+  function addToCart(c) {
+    setCart(c);
+  }
   return (
     <>
-      <header>
-        <NavBar />
+      <header style={{ marginBottom: "4rem" }}>
+        <NavBar cart={cart} />
       </header>
-      <Container style={{ marginTop: "4rem" }}>
-        <ItemListContainer greeting={"Bienvenidos"} />
+      <Container>
+        <ItemListContainer
+          greeting={"Bienvenidos"}
+          onAdd={addToCart}
+        />
       </Container>
-
       <footer></footer>
     </>
   );

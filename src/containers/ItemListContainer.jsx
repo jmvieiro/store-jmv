@@ -1,105 +1,72 @@
 import { useEffect, useState } from "react";
-import { getProductsMeLi } from "../utils/const.jsx";
+import { getProductsMeLi } from "../utils/const";
 import { Alert, Row, Col } from "react-bootstrap";
 import { ItemList } from "../components/ItemList/ItemList";
 import { ButtonComponent } from "../components/ButtonComponent/ButtonComponent";
+import { products } from "./products";
 
-export const ItemListContainer = ({ greeting }) => {
+export const ItemListContainer = ({ greeting, onAdd }) => {
   const [productos, setProductos] = useState([]);
   const [alert, setAlert] = useState(false);
+  const [searchMeli, setSearchMeli] = useState(false);
+  const [searchLocal, setSearchLocal] = useState(false);
 
-  // useEffect(() => {
-  //   const waitForData = async () => {
-  //     let data = await getProductsMeLi("zapatillas");
-  //     let aux = data.map((element) => {
-  //       return {
-  //         title: element.title,
-  //         img: element.thumbnail,
-  //         price: element.price,
-  //         stock: element.available_quantity,
-  //         category: element.domain_id,
-  //       };
-  //     });
-  //     setProductos(aux);
-  //   };
-  //   waitForData();
-  // }, []);
-
-  function getMeLi() {
-    const waitForData = async () => {
-      let data = await getProductsMeLi("zapatillas");
-      let aux = data.map((element) => {
-        return {
-          title: element.title,
-          img: element.thumbnail,
-          price: element.price,
-          stock: element.available_quantity,
-          category: element.domain_id,
-        };
+  useEffect(() => {
+    if (searchMeli) {
+      setProductos([]);
+      setAlert(true);
+      setSearchMeli(false);
+      const waitForData = async () => {
+        let data = await getProductsMeLi("zapatillas");
+        let aux = data.map((element) => {
+          return {
+            title: element.title,
+            img: element.thumbnail,
+            price: element.price,
+            stock: element.available_quantity,
+            category: element.domain_id,
+          };
+        });
+        setProductos(aux);
+      };
+      waitForData();
+    }
+    if (searchLocal) {
+      setProductos([]);
+      setAlert(true);
+      setSearchLocal(false);
+      simulateNetworkRequest().then(() => {
+        setProductos(products);
       });
-      setProductos(aux);
-    };
-    setProductos([]);
-    setAlert(true);
-    waitForData();
+    }
+  }, [productos, searchLocal, searchMeli, alert]);
+
+  function simulateNetworkRequest() {
+    return new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
-  function getData() {
-    setProductos([]);
-    setAlert(true);
-    let value = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const product = [
-          {
-            category: "Indumentaria",
-            title: "Zapatilla",
-            price: 825,
-            stock: 4,
-            img: "https://solodeportes-9bvc3m9qgmf6g9x.stackpathdns.com/media/catalog/product/cache/3cb7d75bc2a65211451e92c5381048e9/z/a/zapatilla-adidas-retrorun-mujer-violeta-100010eg4223001-1.jpg",
-          },
-          {
-            category: "Indumentaria",
-            title: "Remera",
-            price: 2500,
-            stock: 10,
-            img: "https://www.remerasya.com/pub/media/catalog/product/cache/e4d64343b1bc593f1c5348fe05efa4a6/r/e/remera_azul_lisa_2.jpg",
-          },
-          {
-            category: "Indumentaria",
-            title: "Patalón",
-            price: 3500,
-            stock: 0,
-            img: "https://renzauniformes.com/wp-content/uploads/2021/03/garys-704800-pantalon-mujer-bols--americano-albero.jpg",
-          },
-        ];
-        resolve(product);
-      }, 3000);
-    })
-      .then((result) => {
-        setProductos(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  const handleClickMeli = () => setSearchMeli(true);
+  const handleClickLocal = () => setSearchLocal(true);
 
   return (
     <>
-      <h2>{greeting}</h2>
+      <h2 className="mb-3" text="center">
+        {greeting}
+      </h2>
       <Row>
         <Col lg={6}>
           <ButtonComponent
-            text="Get productos using getMeLi"
+            text={`Traer productos de Mercado Libre`}
             variant="info"
-            onClick={getMeLi}
+            onClick={handleClickMeli}
             block={true}
           />
         </Col>
         <Col lg={6}>
           <ButtonComponent
-            text="Get products using getData"
+            text="Traer productos local"
             variant="info"
-            onClick={getData}
+            onClick={handleClickLocal}
             block={true}
           />
         </Col>
@@ -112,7 +79,13 @@ export const ItemListContainer = ({ greeting }) => {
       </Alert>
 
       <Row className="mt-3">
-        <Col>{productos.length > 0 ? <ItemList data={productos} /> : ""}</Col>
+        <Col>
+          {productos.length > 0 ? (
+            <ItemList data={productos} onAdd={onAdd} />
+          ) : (
+            ""
+          )}
+        </Col>
       </Row>
     </>
   );

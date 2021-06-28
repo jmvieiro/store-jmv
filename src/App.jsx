@@ -2,10 +2,9 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { NavBar } from "./components/NavBar/NavBar";
-import { ItemListContainer } from "./components/ItemListContainer/ItemListContainer";
-import { ItemDetailContainer } from "./components/ItemDetailContainer/ItemDetailContainer";
+import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
+import { ItemDetailContainer } from "./containers/ItemDetailContainer/ItemDetailContainer";
 import { Container, Row, Col } from "react-bootstrap";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +29,7 @@ function App() {
             />
           </Col>
         </Row>
-        <hr color="white" />
+        <hr color="white" />{" "}
         <Row className="mb-4">
           <Col>
             <ItemListContainer

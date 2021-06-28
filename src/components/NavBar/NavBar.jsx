@@ -15,11 +15,11 @@ export const NavBar = ({ cart }) => {
           alt={NAME_APP}
           title={NAME_APP}
           style={{ maxWidth: 160 }}
-          className="d-inline-block align-top"
+          className="mr-2"
         />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-2">
+          <Nav className="flex-grow-1">
             {MenuItems.map((item) => {
               return (
                 <Nav.Link href={item.href} key={item.href}>
@@ -28,8 +28,10 @@ export const NavBar = ({ cart }) => {
               );
             })}
           </Nav>
-          <Nav className="ml-auto">
-            <Auth />
+          <Nav>
+            <Nav.Item>
+              <Auth />
+            </Nav.Item>
             <Nav.Link href="#cart">
               <CartWidget cantidad={cart} />
             </Nav.Link>

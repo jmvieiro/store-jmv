@@ -1,14 +1,15 @@
-import { Row, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Item } from "../Item/Item";
 
 export const ItemList = ({ data, onAdd }) => {
+  let large = data.length < 3 ? 6 : 4;
   return (
-    <Container>
-      <Row >
-        {data.map((product) => (
-          <Item key={product.id} product={product} onAdd={onAdd} />
-        ))}
-      </Row>
-    </Container>
+    <Row>
+      {data.map((product) => (
+        <Col key={product.id} lg={large}>
+          <Item product={product} onAdd={onAdd} />
+        </Col>
+      ))}
+    </Row>
   );
 };

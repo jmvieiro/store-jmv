@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Alert, Row, Col } from "react-bootstrap";
-import { ItemDetail } from "../ItemDetail/ItemDetail";
+import { Alert } from "react-bootstrap";
+import { ItemDetail } from "../../components/ItemDetail/ItemDetail";
 
 export const ItemDetailContainer = ({ greeting, onAdd }) => {
   const [product, setProduct] = useState(undefined);
@@ -14,7 +14,7 @@ export const ItemDetailContainer = ({ greeting, onAdd }) => {
       }, 2000);
     };
     getItems();
-  }, []);
+  }, [product]);
 
   return (
     <>
@@ -24,15 +24,7 @@ export const ItemDetailContainer = ({ greeting, onAdd }) => {
         {!product ? "Cargando" : "Listo, se obtuvo el producto."}
       </Alert>
 
-      {product ? (
-        <Row className="mt-3">
-          <Col>
-            <ItemDetail product={product} onAdd={onAdd} />
-          </Col>
-        </Row>
-      ) : (
-        ""
-      )}
+      {product ? <ItemDetail product={product} onAdd={onAdd} /> : ""}
     </>
   );
 };

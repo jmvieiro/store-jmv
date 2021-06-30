@@ -8,11 +8,11 @@ export const ItemDetail = ({ product, onAdd }) => {
     <Container className="itemDetail">
       <Row noGutters>
         <Col className="py-2 px-4" lg={4} md={6} sm={4}>
-          <Row>
+          {/* <Row>
             <Col>
               <Badge variant="success">{product.category}</Badge>
             </Col>
-          </Row>
+          </Row> */}
           <Row>
             <Col>
               <img
@@ -25,7 +25,7 @@ export const ItemDetail = ({ product, onAdd }) => {
             </Col>
           </Row>
         </Col>
-        <Col className="py-2 px-4" lg={8} md={6} sm={8}>
+        <Col className="px-4" lg={8} md={6} sm={8}>
           <Row className="mt-4">
             <Col md={8}>
               <h3>{product.title}</h3>

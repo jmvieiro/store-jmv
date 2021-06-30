@@ -65,8 +65,8 @@ export const ItemCounter = ({ stock, initial, onAdd }) => {
         <Col>
           <ButtonComponent
             className="mb-2"
-            text="Sin stock."
-            variant="secondary"
+            text="Sin stock"
+            variant="dark"
             block={true}
           />
         </Col>

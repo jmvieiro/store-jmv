@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
-import { NavBar } from "./components/NavBar/NavBar";
+import { NavBarContainer } from "./containers/NavBarContainer/NavBarContainer";
 import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
 import { ItemDetailContainer } from "./containers/ItemDetailContainer/ItemDetailContainer";
-import { Container, Row, Col } from "react-bootstrap";
+import { ItemCheckoutContainer } from "./containers/ItemCheckoutContainer/ItemCheckoutContainer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -17,29 +18,36 @@ function App() {
   }
   return (
     <>
-      <header style={{ marginBottom: "4rem" }}>
-        <NavBar cart={cart} />
-      </header>
-      <Container>
-        <Row>
-          <Col>
-            <ItemDetailContainer
-              greeting={"ItemDetailContainer"}
-              onAdd={addToCart}
-            />
-          </Col>
-        </Row>
-        <hr color="white" />{" "}
-        <Row className="mb-4">
-          <Col>
+      <BrowserRouter>
+        <header style={{ marginBottom: "5rem" }}>
+          <NavBarContainer cart={cart} />
+        </header>
+
+        <Switch>
+          <Route exact path="/">
             <ItemListContainer
-              greeting={"ItemListContainer"}
+              greeting={"Listado de productos"}
               onAdd={addToCart}
             />
-          </Col>
-        </Row>
-      </Container>
-      <footer></footer>
+          </Route>
+          <Route exact path="/category/:id">
+            <ItemListContainer
+              greeting={"Listado de productos por categoría"}
+              onAdd={addToCart}
+            />
+          </Route>
+          <Route path="/item/:id">
+            <ItemDetailContainer
+              greeting={"Detalle de producto"}
+              onAdd={addToCart}
+            />
+          </Route>
+          <Route exact path="/checkout">
+            <ItemCheckoutContainer greeting={"ItemCheckoutContainer"} />
+          </Route>
+          <footer></footer>
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

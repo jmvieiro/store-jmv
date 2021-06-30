@@ -1,30 +1,37 @@
 import { NAME_APP } from "../../utils/const";
 import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { CartWidget } from "../CartWidget/CartWidget";
 import logo from "./logo.png"; // with import
 import "./styles.scss";
-import { MenuItems } from "./MenuItems";
 import { Auth } from "../Auth/Auth";
 
-export const NavBar = ({ cart }) => {
+export const NavBar = ({ categories, cart }) => {
   return (
     <Navbar className="fixed-top" collapseOnSelect expand="lg">
       <div className="container">
-        <img
-          src={logo}
-          alt={NAME_APP}
-          title={NAME_APP}
-          style={{ maxWidth: 160 }}
-          className="mr-2"
-        />
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <img
+            src={logo}
+            alt={NAME_APP}
+            title={NAME_APP}
+            style={{ maxWidth: 160 }}
+            className="mr-2"
+          />
+        </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="flex-grow-1">
-            {MenuItems.map((item) => {
+            {categories.map((cat) => {
               return (
-                <Nav.Link href={item.href} key={item.href}>
-                  {item.name}
-                </Nav.Link>
+                <Nav.Item className="ml-2" key={cat.id}>
+                  <Link
+                    to={`/category/${cat.id}`}
+                    style={{ color: "#122333", textDecoration: "none" }}
+                  >
+                    {cat.name}
+                  </Link>
+                </Nav.Item>
               );
             })}
           </Nav>

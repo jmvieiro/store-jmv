@@ -1,30 +1,38 @@
+import { DATA } from "../../utils/const";
 import { useEffect, useState } from "react";
-import { Alert } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Alert, Container } from "react-bootstrap";
 import { ItemDetail } from "../../components/ItemDetail/ItemDetail";
 
 export const ItemDetailContainer = ({ greeting, onAdd }) => {
+  const { id } = useParams();
   const [product, setProduct] = useState(undefined);
 
   useEffect(() => {
     const getItems = async () => {
-      const response = await fetch("./assets/products.json");
+      const response = await fetch(`${DATA}`);
       let products = await response.json();
-      setTimeout(() => {
-        setProduct(products[0]);
-      }, 2000);
+      let aux = products.find((p) => p.id === parseInt(id));
+      if (aux) setProduct(aux);
     };
     getItems();
-  }, [product]);
+  }, [id]);
 
   return (
-    <>
-      <h2>{greeting}</h2>
+    <Container>
+      <h2 className="mb-3" align="center">
+        {greeting}
+      </h2>
 
-      <Alert variant="info" className={alert ? "d-block mt-3" : "d-none"}>
-        {!product ? "Cargando" : "Listo, se obtuvo el producto."}
-      </Alert>
+      {!product ? (
+        <Alert variant="info" className={alert ? "d-block mt-3" : "d-none"}>
+          Producto no encontrado.{" "}
+        </Alert>
+      ) : (
+        ""
+      )}
 
       {product ? <ItemDetail product={product} onAdd={onAdd} /> : ""}
-    </>
+    </Container>
   );
 };

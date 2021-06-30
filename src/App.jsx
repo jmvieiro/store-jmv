@@ -42,9 +42,6 @@ function App() {
               onAdd={addToCart}
             />
           </Route>
-          <Route exact path="/checkout">
-            <ItemCheckoutContainer greeting={"ItemCheckoutContainer"} />
-          </Route>
           <footer></footer>
         </Switch>
       </BrowserRouter>

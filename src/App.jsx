@@ -5,7 +5,6 @@ import "./App.scss";
 import { NavBarContainer } from "./containers/NavBarContainer/NavBarContainer";
 import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
 import { ItemDetailContainer } from "./containers/ItemDetailContainer/ItemDetailContainer";
-import { ItemCheckoutContainer } from "./containers/ItemCheckoutContainer/ItemCheckoutContainer";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -27,19 +26,17 @@ function App() {
           <Route exact path="/">
             <ItemListContainer
               greeting={"Listado de productos"}
-              onAdd={addToCart}
             />
           </Route>
           <Route exact path="/category/:id">
             <ItemListContainer
               greeting={"Listado de productos por categoría"}
-              onAdd={addToCart}
             />
           </Route>
           <Route path="/item/:id">
             <ItemDetailContainer
               greeting={"Detalle de producto"}
-              onAdd={addToCart}
+              onAddToCart={addToCart}
             />
           </Route>
           <footer></footer>

@@ -1,38 +1,51 @@
 import { DATA } from "../../utils/const";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Alert, Container } from "react-bootstrap";
+import { Alert, Container, Spinner } from "react-bootstrap";
 import { ItemDetail } from "../../components/ItemDetail/ItemDetail";
 
-export const ItemDetailContainer = ({ greeting, onAdd }) => {
+export const ItemDetailContainer = ({ greeting, onAddToCart }) => {
   const { id } = useParams();
-  const [product, setProduct] = useState(undefined);
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    setLoaded(false);
     const getItems = async () => {
-      const response = await fetch(`${DATA}`);
-      let products = await response.json();
-      let aux = products.find((p) => p.id === parseInt(id));
-      if (aux) setProduct(aux);
+      let p;
+      if (products.length === 0) {
+        const response = await fetch(`${DATA}`);
+        let aux = await response.json();
+        p = aux;
+        setProducts(aux);
+      }
+      p = products.find((p) => p.id === parseInt(id));
+      setTimeout(() => {
+        setProduct(p);
+        setLoaded(true);
+      }, 300);
     };
     getItems();
-  }, [id]);
+  }, [id, products]);
 
   return (
     <Container>
-      <h2 className="mb-3" align="center">
-        {greeting}
-      </h2>
+      <h2 className="mb-3">{greeting}</h2>
 
-      {!product ? (
-        <Alert variant="info" className={alert ? "d-block mt-3" : "d-none"}>
-          Producto no encontrado.{" "}
-        </Alert>
+      {loaded ? (
+        !product ? (
+          <Alert variant="danger" align="left" className={"mt-3"}>
+            Producto no encontrado.{" "}
+          </Alert>
+        ) : (
+          <ItemDetail product={product} onAddToCart={onAddToCart} />
+        )
       ) : (
-        ""
+        <div className="d-flex justify-content-center">
+          <Spinner align="center" animation="border" variant="info" />
+        </div>
       )}
-
-      {product ? <ItemDetail product={product} onAdd={onAdd} /> : ""}
     </Container>
   );
 };

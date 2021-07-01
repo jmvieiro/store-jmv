@@ -1,18 +1,21 @@
+import { useState } from "react";
 import { Badge, Container, Row, Col } from "react-bootstrap";
 import { ItemCounter } from "../ItemCounter/ItemCounter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import accounting from "accounting";
 import "./styles.scss";
 
-export const ItemDetail = ({ product, onAdd }) => {
+export const ItemDetail = ({ product, onAddToCart }) => {
+  const [confirm, setConfirm] = useState(false);
+  function onAdd(c) {
+    setConfirm(true);
+    onAddToCart(c);
+  }
   return (
     <Container className="itemDetail">
       <Row noGutters>
         <Col className="py-2 px-4" lg={4} md={6} sm={4}>
-          {/* <Row>
-            <Col>
-              <Badge variant="success">{product.category}</Badge>
-            </Col>
-          </Row> */}
           <Row>
             <Col>
               <img
@@ -46,7 +49,25 @@ export const ItemDetail = ({ product, onAdd }) => {
               <p>Stock: {product.stock} unidades</p>
             </Col>
             <Col lg={6}>
-              <ItemCounter stock={product.stock} initial={1} onAdd={onAdd} />
+              {confirm ? (
+                <ButtonComponent
+                  text={`Terminar mi compra`}
+                  variant="success"
+                  icon={
+                    <FontAwesomeIcon
+                      icon={"dollar-sign"}
+                      title="Terminar mi compra"
+                    />
+                  }
+                  block={true}
+                />
+              ) : (
+                <ItemCounter
+                  stock={product.stock}
+                  initial={1}
+                  onAdd={onAdd}
+                />
+              )}
             </Col>
           </Row>
         </Col>

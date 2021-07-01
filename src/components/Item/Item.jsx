@@ -11,9 +11,6 @@ export const Item = ({ product }) => {
     >
       <Card key={product.id} text="white" className="mb-2 p-4">
         <Card.Header>
-          {/* <Row>
-            <Badge variant="success">{product.category}</Badge>
-          </Row> */}
           <Row>
             <Card.Img
               className="mt-1"

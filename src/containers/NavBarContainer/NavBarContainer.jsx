@@ -7,12 +7,14 @@ export const NavBarContainer = ({ cart }) => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const response = await fetch(`${CATEGORIES}`);
-      let c = await response.json();
-      setCategories(c);
+      if (categories.length === 0) {
+        const response = await fetch(`${CATEGORIES}`);
+        let aux = await response.json();
+        setCategories(aux);
+      }
     };
     getCategories();
-  }, []);
+  }, [categories]);
 
   return <NavBar categories={categories} cart={cart} />;
 };

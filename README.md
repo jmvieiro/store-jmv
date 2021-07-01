@@ -10,36 +10,38 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Este proyecto está siendo llevado a cabo con fines académicos, tratando de respetar las mejores prácticas obtenidas en clase, en el marco del curso de ReactJS brindado por CoderHouse.
 Para la realización del proyecto, se instalaron las siguientes dependencias:
 - framework de Bootstrap, optimizado para React (https://react-bootstrap.github.io/), para la utilización de componentes pre-armados, con estilos pre-definidos, los cuales fueron adaptados para su mejor uso.
-- librería de íconos FontAwesome, optimizada para React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (agregar al carrito) y dollar-sign (ir a pasarela de pagos).
+- librería de íconos FontAwesome, optimizada para React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (agregar al carrito), trash-alt (eliminar del carrito) y dollar-sign (ir a confirmación de carrito).
 - extensión de estilos CSS, SASS (https://create-react-app.dev/docs/adding-a-sass-stylesheet/).
 - package de "accounting" para dar formato a los precios (https://www.npmjs.com/package/accounting).
 - ruteo para otorgar navegabilidad al proyecto, implementando React Router DOM (https://reactrouter.com/web/guides/quick-start).
 
 {2021-07-01} 
 El proyecto consiste en la realización de un e-commerce, denominado JMV Store, a través del cual se podrán probar las principales funcionalidades aprendidas.
-Tanto los productos como las categorías son obtenidas utilizando el método "fetch" simulando un request al servidor, incorporando un setTimeout.
-Se definieron 3 grandes contenedores, invocados desde App.jsx:
+Tanto los productos como las categorías son obtenidas utilizando el método "await fetch" simulando un request al servidor, incorporando un setTimeout.
+Se definieron 4 (cuatro) grandes contenedores, invocados desde App.jsx:
 - NavBarContainer: incluido en toda la navegación de la tienda, incorpora el logo de la tienda, las categorías (public/assets/categories.json) y el carrito de compras. Los componentes que lo conforman son: "NavBar" y "CartWidget".
 - ItemListContianer: incluido en la ruta "/" y en "/category/:id", para mostrar todos los productos disponibles (public/assets/products.json), y navegar su agrupación por categoría. Los componentes que lo conforman son: "ItemList" que recibe los productos obtenidos del container e itera por cada uno de ellos, invocando los "Item" -card del producto propiamente dicha-.
-- ItemDetailContainer: incluido en la ruta "/item/:id" donde se podrá ver el detalle del producto seleccionado. Los componentes que lo conforman son: "ItemDetail", que muestra  título, descripción, precio, stock, imagen, y, el "ItemCounter" que en caso de haber stock disponible, permite incluir la cantidad deseada del producto en el carrito de compras del "NavBar" (en caso de no haber stock disponible, informa dicha situación) y finalmente, visualizar el botón de "Terminar mi compra".
+- ItemDetailContainer: incluido en la ruta "/item/:id" donde se podrá ver el detalle del producto seleccionado. Los componentes que lo conforman son: "ItemDetail", que muestra  título, descripción, precio, stock, imagen, y, el "ItemCounter" que en caso de haber stock disponible, permite incluir la cantidad deseada del producto en el carrito de compras del "NavBar" (en caso de no haber stock disponible, informa dicha situación) y finalmente, visualizar el botón de "Terminar mi compra" para acceder al detalle de los productos incluidos en el carrito de compras.
+- ItemCheckoutContainer: incluido en la ruta "/cart" donde se podrá ver el detalle de los productos incluidos en el carrito y el total a abonar. Por el momento, no está desarrollada en su totalidad el funcionamiento de este contenedor. Los componentes que lo conforman son: "ItemListCheckout" que recibe los productos incluidos en el carrito e itera por cada uno de ellos, invocando los "ItemCheckout" que muestran cada producto incluido en el carrito, junto con el total a abonar y el botón de confirmar carrito.
 Adicionalmente, se crearon dos componentes como "helpers": "ButtonComponent" para darle personalización al Button nativo de React Bootstrap, y "TextOnlyXs", que se utiliza como propiedad para definir que el texto allí contenido se visualice solo en resoluciones "xs".
 
 [EN]
 This project is being carried out for academic purposes, trying to respect the best practices obtained in class, within the framework of the ReactJS course provided by CoderHouse.
 To carry out the project, the following dependencies were installed:
 - Bootstrap framework, optimized for React (https://react-bootstrap.github.io/), for the use of pre-built components, with pre-defined styles, which were adapted for better use.
-- FontAwesome icon library, optimized for React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (add to cart) and dollar-sign (go to payment gateway).
+- FontAwesome icon library, optimized for React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (add to cart), trash-alt (remove from cart) and dollar-sign (go to cart confirmation).
 - CSS styles extension, SASS (https://create-react-app.dev/docs/adding-a-sass-stylesheet/).
 - "accounting" package to format prices (https://www.npmjs.com/package/accounting).
 - routing to grant navigability to the project, implementing React Router DOM (https://reactrouter.com/web/guides/quick-start).
 
 {2021-07-01}
 The project consists of the realization of an e-commerce, called JMV Store, through which the main functionalities learned can be tested.
-Both products and categories are obtained using the "fetch" method, simulating a request to the server, incorporating a setTimeout.
-3 large containers were defined, invoked from App.jsx:
-- NavBarContainer: included in all the navigation of the store, it incorporates the logo of the store, the categories (publi /assets/categories.json) and the shopping cart. The components that make it up are: "NavBar" and "CartWidget".
+Both products and categories are obtained using the "await fetch" method, simulating a request to the server, incorporating a setTimeout.
+4 (four) large containers were defined, invoked from App.jsx:
+- NavBarContainer: included in all the navigation of the store, it incorporates the logo of the store, the categories (public/assets/categories.json) and the shopping cart. The components that make it up are: "NavBar" and "CartWidget".
 - ItemListContianer: included in the "/" path and in "/category/:id", to show all the available products (public/assets/products.json), and navigate their grouping by category. The components that make it up are: "ItemList" that receives the products obtained from the container and iterates through each one of them, invoking the "Item" -card of the product itself.
-- ItemDetailContainer: included in the path "/item/:id" where you can see the detail of the selected product. The components that make it up are: "ItemDetail", which shows the title, description, price, stock, image, and the "ItemCounter" that, if there is stock available, allows the desired quantity of the product to be included in the shopping cart of the "NavBar" (if there is no stock available, it reports this situation) and finally, view the "Terminar mi compra" button.
+- ItemDetailContainer: included in the path "/item/:id" where you can see the detail of the selected product. The components that make it up are: "ItemDetail", which shows the title, description, price, stock, image, and the "ItemCounter" which, if there is stock available, allows the desired quantity of the product to be included in the shopping cart of "NavBar" (if there is no stock available, report this situation) and finally, view the "Finish my purchase" button to access the details of the products included in the shopping cart.
+- ItemCheckoutContainer: included in the path "/cart" routine where you can see the details of the products included in the cart and the total to be paid. At the moment, the operation of this container is not fully developed. The components that comprise it are: "ItemListCheckout" that receives the products included in the cart and iterates through each of them, invoking the "ItemCheckout" that show each product included in the cart, along with the total to be paid and the button of confirm cart.
 Additionally, two components were created as "helpers": "ButtonComponent" to give customization to the native React Bootstrap Button, and "TextOnlyXs", which is used as a property to define that the text contained therein is displayed only in "xs" resolutions.
 
 ## Available Scripts

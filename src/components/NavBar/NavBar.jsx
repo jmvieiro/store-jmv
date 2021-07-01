@@ -2,7 +2,7 @@ import { NAME_APP } from "../../utils/const";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { CartWidget } from "../CartWidget/CartWidget";
-import logo from "./logo.png"; 
+import logo from "./logo.png";
 import "./styles.scss";
 
 export const NavBar = ({ categories, cart }) => {
@@ -36,7 +36,9 @@ export const NavBar = ({ categories, cart }) => {
           </Nav>
           <Nav>
             <Nav.Item>
-              <CartWidget cantidad={cart} />
+              <Link to={`/cart`}>
+                <CartWidget cantidad={cart} />
+              </Link>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

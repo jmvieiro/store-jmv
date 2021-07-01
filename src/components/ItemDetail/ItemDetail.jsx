@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Badge, Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { ItemCounter } from "../ItemCounter/ItemCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
@@ -50,23 +51,21 @@ export const ItemDetail = ({ product, onAddToCart }) => {
             </Col>
             <Col lg={6}>
               {confirm ? (
-                <ButtonComponent
-                  text={`Terminar mi compra`}
-                  variant="success"
-                  icon={
-                    <FontAwesomeIcon
-                      icon={"dollar-sign"}
-                      title="Terminar mi compra"
-                    />
-                  }
-                  block={true}
-                />
+                <Link to={"/cart"} style={{ textDecoration: "none" }}>
+                  <ButtonComponent
+                    text={`Terminar mi compra`}
+                    variant="success"
+                    icon={
+                      <FontAwesomeIcon
+                        icon={"dollar-sign"}
+                        title="Terminar mi compra"
+                      />
+                    }
+                    block={true}
+                  />
+                </Link>
               ) : (
-                <ItemCounter
-                  stock={product.stock}
-                  initial={1}
-                  onAdd={onAdd}
-                />
+                <ItemCounter stock={product.stock} initial={1} onAdd={onAdd} />
               )}
             </Col>
           </Row>

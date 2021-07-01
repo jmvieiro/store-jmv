@@ -13,7 +13,7 @@ Para la realización del proyecto, se instalaron las siguientes dependencias:
 - librería de íconos FontAwesome, optimizada para React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (agregar al carrito) y dollar-sign (ir a pasarela de pagos).
 - extensión de estilos CSS, SASS (https://create-react-app.dev/docs/adding-a-sass-stylesheet/).
 - package de "accounting" para dar formato a los precios (https://www.npmjs.com/package/accounting).
-- ruteo para otorgar navegabilidad al proyecto, implementando React Router DOM https://reactrouter.com/web/guides/quick-start.
+- ruteo para otorgar navegabilidad al proyecto, implementando React Router DOM (https://reactrouter.com/web/guides/quick-start).
 
 {2021-07-01} 
 El proyecto consiste en la realización de un e-commerce, denominado JMV Store, a través del cual se podrán probar las principales funcionalidades aprendidas.
@@ -31,7 +31,7 @@ To carry out the project, the following dependencies were installed:
 - FontAwesome icon library, optimized for React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (add to cart) and dollar-sign (go to payment gateway).
 - CSS styles extension, SASS (https://create-react-app.dev/docs/adding-a-sass-stylesheet/).
 - "accounting" package to format prices (https://www.npmjs.com/package/accounting).
-- routing to grant navigability to the project, implementing React Router DOM https://reactrouter.com/web/guides/quick-start.
+- routing to grant navigability to the project, implementing React Router DOM (https://reactrouter.com/web/guides/quick-start).
 
 {2021-07-01}
 The project consists of the realization of an e-commerce, called JMV Store, through which the main functionalities learned can be tested.

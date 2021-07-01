@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { CartWidget } from "../CartWidget/CartWidget";
 import logo from "./logo.png"; 
 import "./styles.scss";
-// import { Auth } from "../Auth/Auth";
 
 export const NavBar = ({ categories, cart }) => {
   return (
@@ -36,12 +35,9 @@ export const NavBar = ({ categories, cart }) => {
             })}
           </Nav>
           <Nav>
-            {/* <Nav.Item>
-              <Auth />
-            </Nav.Item> */}
-            <Nav.Link href="#cart">
+            <Nav.Item>
               <CartWidget cantidad={cart} />
-            </Nav.Link>
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </div>

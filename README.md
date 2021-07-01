@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [ES]
 Este proyecto está siendo llevado a cabo con fines académicos, tratando de respetar las mejores prácticas obtenidas en clase, en el marco del curso de ReactJS brindado por CoderHouse.
-Para realización del proyecto, se instalaron las siguientes dependencias:
+Para la realización del proyecto, se instalaron las siguientes dependencias:
 - framework de Bootstrap, optimizado para React (https://react-bootstrap.github.io/), para la utilización de componentes pre-armados, con estilos pre-definidos, los cuales fueron adaptados para su mejor uso.
 - librería de íconos FontAwesome, optimizada para React (https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react): shopping-cart (cart widget), cart-plus (agregar al carrito) y dollar-sign (ir a pasarela de pagos).
 - extensión de estilos CSS, SASS (https://create-react-app.dev/docs/adding-a-sass-stylesheet/).

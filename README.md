@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About the project
+
+This project is being carried out for academic purposes, trying to respect the best practices obtained in class, within the framework of the ReactJS course provided by CoderHouse.
+It consists of carrying out an e-commerce, through which the main functionalities can be tested.
+
 ## Available Scripts
 
 In the project directory, you can run:

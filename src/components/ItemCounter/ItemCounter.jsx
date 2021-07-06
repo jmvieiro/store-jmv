@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import "./styles.scss";
 
-export const ItemCounter = ({ stock, initial, onAdd }) => {
+export const ItemCounter = ({ stock, initial, onAdd = null }) => {
   const [counter, setCounter] = useState(initial);
   const sumar = () => {
     if (counter < stock) setCounter(counter + 1);
@@ -18,18 +18,18 @@ export const ItemCounter = ({ stock, initial, onAdd }) => {
     else setCounter(stock);
   };
   return (
-    <Row>
+    <Row noGutters>
       {stock > 0 ? (
         <>
           <Col sm={5} lg={8}>
-            <InputGroup className="mb-2">
+            <InputGroup className="mb-2 pr-2">
               <InputGroup.Prepend>
                 <Button onClick={restar} variant="outline-secondary">
                   -
                 </Button>
               </InputGroup.Prepend>
               <FormControl
-                id="counter"
+                className="counter"
                 onChange={manualChange}
                 value={counter}
                 placeholder="Stock"
@@ -65,6 +65,7 @@ export const ItemCounter = ({ stock, initial, onAdd }) => {
             className="mb-2"
             text="Sin stock"
             variant="dark"
+            style={{ cursor: "default" }}
             block={true}
           />
         </Col>

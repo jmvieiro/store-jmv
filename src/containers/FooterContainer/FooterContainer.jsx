@@ -1,8 +1,8 @@
 import { CATEGORIES } from "../../utils/const";
 import { useEffect, useState } from "react";
-import { NavBar } from "../../components/NavBar/NavBar";
+import { Footer } from "../../components/Footer/Footer";
 
-export const NavBarContainer = () => {
+export const FooterContainer = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getCategories = async () => {
@@ -15,5 +15,5 @@ export const NavBarContainer = () => {
     getCategories();
   }, [categories]);
 
-  return <NavBar categories={categories} />;
+  return <Footer categories={categories} />;
 };

@@ -1,37 +1,30 @@
-import { DATA } from "../../utils/const";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Alert, Container, Spinner } from "react-bootstrap";
 import { ItemDetail } from "../../components/ItemDetail/ItemDetail";
+import { ShopContext } from "../../context/ShopContext/ShopContext";
 
-export const ItemDetailContainer = ({ greeting, onAddToCart }) => {
+export const ItemDetailContainer = () => {
+  const { products } = useContext(ShopContext);
   const { id } = useParams();
-  const [products, setProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setLoaded(false);
     const getItems = async () => {
-      let p;
-      if (products.length === 0) {
-        const response = await fetch(`${DATA}`);
-        let aux = await response.json();
-        p = aux;
-        setProducts(aux);
-      }
-      p = products.find((p) => p.id === parseInt(id));
+      let p = products.find((p) => p.id === parseInt(id));
       setTimeout(() => {
         setProduct(p);
         setLoaded(true);
-      }, 300);
+      }, 500);
     };
     getItems();
   }, [id, products]);
 
   return (
     <Container>
-      <h2 className="mb-3">{greeting}</h2>
+      <h2 className="mb-3">Detalle del producto: #{id}</h2>
 
       {loaded ? (
         !product ? (
@@ -39,7 +32,7 @@ export const ItemDetailContainer = ({ greeting, onAddToCart }) => {
             Producto no encontrado.{" "}
           </Alert>
         ) : (
-          <ItemDetail product={product} onAddToCart={onAddToCart} />
+          <ItemDetail product={product} />
         )
       ) : (
         <div className="d-flex justify-content-center">

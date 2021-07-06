@@ -1,17 +1,20 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Badge, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ItemCounter } from "../ItemCounter/ItemCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import accounting from "accounting";
+import { CartContext } from "../../context/CartContext/CartContext.jsx";
+
 import "./styles.scss";
 
-export const ItemDetail = ({ product, onAddToCart }) => {
+export const ItemDetail = ({ product }) => {
+  const { addItem } = useContext(CartContext);
   const [confirm, setConfirm] = useState(false);
   function onAdd(c) {
     setConfirm(true);
-    onAddToCart(c);
+    addItem(product, c, false);
   }
   return (
     <Container className="itemDetail">
@@ -51,19 +54,38 @@ export const ItemDetail = ({ product, onAddToCart }) => {
             </Col>
             <Col lg={6}>
               {confirm ? (
-                <Link to={"/cart"} style={{ textDecoration: "none" }}>
-                  <ButtonComponent
-                    text={`Terminar mi compra`}
-                    variant="success"
-                    icon={
-                      <FontAwesomeIcon
-                        icon={"dollar-sign"}
-                        title="Terminar mi compra"
+                <Row>
+                  <Col lg={6}>
+                    <Link to={"/"} style={{ textDecoration: "none" }}>
+                      <ButtonComponent
+                        text={`Seguir comprando`}
+                        variant="outline-light"
+                        icon={
+                          <FontAwesomeIcon
+                            icon={"shopping-cart"}
+                            title="Seguir comprando"
+                          />
+                        }
+                        block={true}
                       />
-                    }
-                    block={true}
-                  />
-                </Link>
+                    </Link>
+                  </Col>
+                  <Col lg={6}>
+                    <Link to={"/cart"} style={{ textDecoration: "none" }}>
+                      <ButtonComponent
+                        text={`Terminar mi compra`}
+                        variant="success"
+                        icon={
+                          <FontAwesomeIcon
+                            icon={"dollar-sign"}
+                            title="Terminar mi compra"
+                          />
+                        }
+                        block={true}
+                      />
+                    </Link>
+                  </Col>
+                </Row>
               ) : (
                 <ItemCounter stock={product.stock} initial={1} onAdd={onAdd} />
               )}

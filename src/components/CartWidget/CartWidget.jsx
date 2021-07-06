@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
 import { Badge } from "react-bootstrap";
+import { CartContext } from "../../context/CartContext/CartContext";
 import "./styles.scss";
 
-export const CartWidget = ({ cantidad }) => {
+export const CartWidget = () => {
+  const { cartSize } = useContext(CartContext);
   return (
     <>
       <div>
@@ -20,7 +23,7 @@ export const CartWidget = ({ cantidad }) => {
             paddingTop: "0.2em",
           }}
         >
-          {cantidad}
+          {cartSize}
         </Badge>
         <span className="sr-only">Carrito de compras</span>
       </div>

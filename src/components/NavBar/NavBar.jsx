@@ -1,20 +1,19 @@
-import { NAME_APP } from "../../utils/const";
+import { APP_NAME } from "../../utils/const";
 import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CartWidget } from "../CartWidget/CartWidget";
-import logo from "./logo.png";
 import "./styles.scss";
 
-export const NavBar = ({ categories, cart }) => {
+export const NavBar = ({ categories }) => {
   return (
     <Navbar className="fixed-top" collapseOnSelect expand="lg">
       <div className="container">
         <Link to={"/"} style={{ textDecoration: "none" }}>
           <img
-            src={logo}
-            alt={NAME_APP}
-            title={NAME_APP}
-            style={{ maxWidth: 160 }}
+            src={"/assets/logo.png"}
+            alt={APP_NAME}
+            title={APP_NAME}
+            style={{ maxWidth: 119 }}
             className="mr-2"
           />
         </Link>
@@ -23,21 +22,22 @@ export const NavBar = ({ categories, cart }) => {
           <Nav className="flex-grow-1">
             {categories.map((cat) => {
               return (
-                <Nav.Item className="ml-2" key={cat.id}>
-                  <Link
-                    to={`/category/${cat.id}`}
-                    style={{ color: "#122333", textDecoration: "none" }}
-                  >
-                    {cat.name}
-                  </Link>
-                </Nav.Item>
+                <Nav.Link
+                  as={NavLink}
+                  activeClassName="active"
+                  className="ml-2"
+                  key={cat.id}
+                  to={`/category/${cat.id}`}
+                >
+                  {cat.name}
+                </Nav.Link>
               );
             })}
           </Nav>
           <Nav>
             <Nav.Item>
               <Link to={`/cart`}>
-                <CartWidget cantidad={cart} />
+                <CartWidget />
               </Link>
             </Nav.Item>
           </Nav>

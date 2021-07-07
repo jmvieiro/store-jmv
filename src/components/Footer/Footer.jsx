@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./styles.scss";
 
-export const Footer = ({ categories }) => {
+export const Footer = () => {
   return (
     <>
       <div className="container">
@@ -23,23 +23,7 @@ export const Footer = ({ categories }) => {
               quasi perferendis ratione perspiciatis accusantium.
             </p>
           </div>
-          <div className="col-md mt-4">
-            <ul className="list-unstyled nav-links">
-              {categories.map((cat) => {
-                return (
-                  <li key={cat.id}>
-                    <Link
-                      to={`/category/${cat.id}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      {cat.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="col-md mt-4">
+          <div className="col-md text-md-center mt-4">
             <ul className="list-unstyled nav-links">
               <li>
                 <a href="/">Politicas de privacidad</a>

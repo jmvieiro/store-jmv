@@ -1,4 +1,4 @@
-import { Card, Badge, Row, Col } from "react-bootstrap";
+import { Card, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import accounting from "accounting";
 import "./styles.scss";
@@ -11,37 +11,26 @@ export const Item = ({ product }) => {
     >
       <Card key={product.id} text="white" className="mb-2 p-4">
         <Card.Header>
-          <Row>
-            <Card.Img
-              className="mt-1"
-              variant="top"
-              src={product.img}
-              alt={product.title}
-              title={product.title}
-            />
-          </Row>
+          <Card.Img
+            className="mt-1"
+            variant="top"
+            src={product.img}
+            alt={product.title}
+            title={product.title}
+          />
         </Card.Header>
         <Card.Body className="pt-2">
-          <Row className="align-items-end">
-            <Col>
-              <Card.Text>{product.title}</Card.Text>
-              <Card.Text>
-                {accounting.formatMoney(product.price, "$")}
-              </Card.Text>
-            </Col>
-            <Col align="right">
-              {product.stock === 0 ? (
-                <Badge className="outOfStock" variant="dark">
-                  Sin stock
-                </Badge>
-              ) : (
-                <Badge className="outOfStock" variant="light">
-                  Stock: {product.stock}{" "}
-                </Badge>
-              )}
-            </Col>
-          </Row>
+          <Card.Text>{product.title}</Card.Text>
+          <Card.Text>{accounting.formatMoney(product.price, "$")}</Card.Text>
         </Card.Body>
+        <Card.Footer>
+          <Badge
+            className="outOfStock"
+            variant={product.stock === 0 ? `dark` : `light`}
+          >
+            {product.stock === 0 ? `Sin stock` : `Stock: ${product.stock}`}
+          </Badge>
+        </Card.Footer>
       </Card>
     </Link>
   );

@@ -1,19 +1,9 @@
-import { CATEGORIES } from "../../utils/const";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
+import { CartContext } from "../../context/CartContext/CartContext";
+
 
 export const NavBarContainer = () => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const getCategories = async () => {
-      if (categories.length === 0) {
-        const response = await fetch(`${CATEGORIES}`);
-        let aux = await response.json();
-        setCategories(aux);
-      }
-    };
-    getCategories();
-  }, [categories]);
-
+  const { categories } = useContext(CartContext);
   return <NavBar categories={categories} />;
 };

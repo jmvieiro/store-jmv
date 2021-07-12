@@ -5,7 +5,12 @@
   background-color: #0f1c27;
 }
 
-.outOfStock{
-  padding:5px 10px;
-  font-size:15px;
+.itemBadge {
+  position: absolute;
+  right:29px;
+  bottom:86px;
+  text-align: center;
+  color:white;
+  padding:3px 6px;
+  font-size:12px;
 }

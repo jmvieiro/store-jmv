@@ -1,38 +1,28 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Row, Col, Alert, Container, Spinner } from "react-bootstrap";
+import { Row, Col, Alert, Container } from "react-bootstrap";
 import { ItemList } from "../../components/ItemList/ItemList";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ShopContext } from "../../context/ShopContext/ShopContext";
+import { CartContext } from "../../context/CartContext/CartContext";
 import "./styles.scss";
 
 export const ItemListContainer = () => {
-  const { products, categories } = useContext(ShopContext);
+  const { products, categories } = useContext(CartContext);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState(null);
-  const [loaded, setLoaded] = useState(false);
   const { id } = useParams();
   useEffect(() => {
-    setLoaded(false);
-    const getItems = async () => {
-      let cat = id ? categories.find((c) => c.id === parseInt(id)) : null;
-      let p = id
-        ? products.filter((p) => p.category === parseInt(id))
-        : products;
-      setTimeout(() => {
-        setFilterProducts(p);
-        setCategory(cat);
-        setLoaded(true);
-      }, 1000);
-    };
-    getItems();
+    let cat = id ? categories.find((c) => c.id === parseInt(id)) : null;
+    let p = id ? products.filter((p) => p.category === parseInt(id)) : products;
+    setFilterProducts(p);
+    setCategory(cat);
   }, [id, products, categories]);
 
   return (
     <Container>
       <Row>
-        <Col lg={3} className="categories d-none d-lg-block">
+        <Col md={3} className="categories d-none d-md-block">
           <h5 className="mb-3">Categorías</h5>
           <ul className=" list-unstyled nav-links">
             <li>
@@ -54,24 +44,16 @@ export const ItemListContainer = () => {
             })}
           </ul>
         </Col>
-        <Col lg={9}>
-          {loaded ? (
-            [
-              <h2 key={1} className="mb-3">
-                {category ? `${category.name}` : ""}
-              </h2>,
-              filterProducts.length === 0 ? (
-                <Alert key={2} variant="danger" align="left" className={"mt-3"}>
-                  No hay productos para mostrar.
-                </Alert>
-              ) : (
-                <ItemList key={2} data={filterProducts} />
-              ),
-            ]
+        <Col md={9}>
+          <h2 key={1} className="mb-3">
+            {category ? `${category.name}` : ""}
+          </h2>
+          {filterProducts.length === 0 ? (
+            <Alert key={2} variant="danger" align="left" className={"mt-3"}>
+              No hay productos para mostrar.
+            </Alert>
           ) : (
-            <div className="d-flex justify-content-center">
-              <Spinner align="center" animation="border" variant="info" />
-            </div>
+            <ItemList key={2} data={filterProducts} />
           )}
         </Col>
       </Row>

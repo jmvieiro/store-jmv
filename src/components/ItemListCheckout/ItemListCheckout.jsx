@@ -5,7 +5,7 @@ export const ItemListCheckout = ({ data }) => {
   return (
     <Row>
       {data.map(({product, qty}) => (
-        <Col key={product.id} lg={4}>
+        <Col key={product.id} lg={12}>
           <ItemCheckout product={product} qty={qty} />
         </Col>
       ))}

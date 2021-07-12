@@ -7,7 +7,6 @@ import { ItemDetailContainer } from "./containers/ItemDetailContainer/ItemDetail
 import { ItemCheckoutContainer } from "./containers/ItemCheckoutContainer/ItemCheckoutContainer";
 import { FooterContainer } from "./containers/FooterContainer/FooterContainer";
 import { CartProvider } from "./context/CartContext/CartContext.jsx";
-import { ShopProvider } from "./context/ShopContext/ShopContext.jsx";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -22,12 +21,10 @@ function App() {
         </header>
         <div className="content">
           <Switch>
-            <ShopProvider>
-              <Route exact path="/" component={ItemListContainer} />
-              <Route exact path="/category/:id" component={ItemListContainer} />
-              <Route exact path="/item/:id" component={ItemDetailContainer} />
-              <Route exact path="/cart" component={ItemCheckoutContainer} />
-            </ShopProvider>
+            <Route exact path="/" component={ItemListContainer} />
+            <Route exact path="/category/:id" component={ItemListContainer} />
+            <Route exact path="/item/:id" component={ItemDetailContainer} />
+            <Route exact path="/cart" component={ItemCheckoutContainer} />
           </Switch>
         </div>
         <footer className="footer">

@@ -5,6 +5,7 @@ import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponen
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import accounting from "accounting";
 import { CartContext } from "../../context/CartContext/CartContext";
+import { Link } from "react-router-dom";
 import "./styles.scss";
 
 export const ItemCheckoutContainer = () => {
@@ -13,54 +14,74 @@ export const ItemCheckoutContainer = () => {
     <Container>
       <h2 className="mb-3">Carrito de compras</h2>
       <Row>
-        <Col lg={9} md={8}>
+        <Col md={8}>
           {cartSize > 0 ? (
             <ItemListCheckout data={cart} />
           ) : (
-            <Alert variant="warning" className={"d-block"}>
-              No tenés productos agregados al carrito
-            </Alert>
+            [
+              <Alert key={1} variant="warning" className={"d-block"}>
+                No tenés productos agregados al carrito.
+              </Alert>,
+              <Link key={2} to={"/"} style={{ textDecoration: "none" }}>
+                <ButtonComponent
+                  text={`Ir de compras`}
+                  variant="info"
+                  icon={
+                    <FontAwesomeIcon
+                      icon={"shopping-cart"}
+                      title="Ir de compras"
+                    />
+                  }
+                  block={true}
+                />
+              </Link>,
+            ]
           )}
         </Col>
-        <Col lg={3} md={4}>
-          <Row noGutters>
-            <Col className="checkout mt-3 mt-md-0 mb-2 p-3">
-              <h4>Total ítems: {cartSize}</h4>
-              <h5>Importe: {accounting.formatMoney(cartTotal, "$")}</h5>
-              {cartSize > 0
-                ? [
-                    <ButtonComponent
-                      key={1}
-                      className="mt-4"
-                      text="Confirmar carrito"
-                      variant="success"
-                      icon={
-                        <FontAwesomeIcon
-                          icon={"cart-plus"}
-                          title="Confirmar carrito"
-                        />
-                      }
-                      onClick={() => {}}
-                      block={true}
-                    ></ButtonComponent>,
-                    <ButtonComponent
-                      key={2}
-                      className="mt-4"
-                      text="Vaciar carrito"
-                      variant="danger"
-                      icon={
-                        <FontAwesomeIcon
-                          icon={"cart-arrow-down"}
-                          title="Vaciar carrito"
-                        />
-                      }
-                      onClick={clear}
-                      block={true}
-                    ></ButtonComponent>,
-                  ]
-                : " "}
-            </Col>
-          </Row>
+        <Col md={4}>
+          <div className="checkout mt-2 mt-md-0">
+            <Row noGutters>
+              <Col className="p-3">
+                <h4>Ítems: {cartSize}</h4>
+                <h5>Total: {accounting.formatMoney(cartTotal, "$")}</h5>
+              </Col>
+            </Row>
+            {cartSize > 0 ? (
+              <Row noGutters>
+                <Col lg={8} className="pt-0 px-3 pb-0 pb-lg-3">
+                  <ButtonComponent
+                    text="Confirmar"
+                    style={{ height: "100%" }}
+                    variant="success"
+                    icon={
+                      <FontAwesomeIcon
+                        icon={"cart-plus"}
+                        title="Confirmar carrito"
+                      />
+                    }
+                    onClick={() => {}}
+                    block={true}
+                  ></ButtonComponent>
+                </Col>
+                <Col lg={4} className="py-3 pt-lg-0 px-3 pl-lg-0">
+                  <ButtonComponent
+                    text="Vaciar"
+                    variant="danger"
+                    icon={
+                      <FontAwesomeIcon
+                        icon={"cart-arrow-down"}
+                        title="Vaciar carrito"
+                      />
+                    }
+                    onClick={clear}
+                    block={true}
+                  ></ButtonComponent>
+                </Col>
+              </Row>
+            ) : (
+              " "
+            )}
+          </div>
         </Col>
       </Row>{" "}
     </Container>

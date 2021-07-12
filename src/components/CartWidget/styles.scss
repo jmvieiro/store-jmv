@@ -3,3 +3,18 @@
 .fa {
   color: $base-background;
 }
+
+.dropdownMenu {
+  border: 3px solid $base-background;
+  background-color: #000;
+}
+
+.dropdown-item {
+  color: $base-navbar;
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+  color: $base-navbar;
+  text-decoration: none;
+  background-color: #000;
+}

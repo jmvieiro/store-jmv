@@ -19,11 +19,15 @@ export const ItemDetail = ({ product }) => {
     setConfirm(true);
     addItem(product, c, false);
   }
+  
   useEffect(() => {
     if (error) setConfirm(false);
-  }, [msj, error, confirm]);
-  let productInCart = cart.find(e => e.product.id === product.id);
-  let remainingStock = productInCart ? product.stock - productInCart.qty : product.stock;
+  }, [error, confirm]);
+
+  let productInCart = cart.find((e) => e.product.id === product.id);
+  let remainingStock = productInCart
+    ? product.stock - productInCart.qty
+    : product.stock;
   return (
     <>
       <Container className="itemDetail">
@@ -49,6 +53,9 @@ export const ItemDetail = ({ product }) => {
           <Col className="px-4" sm={8} md={6} lg={8}>
             <Row className="mt-2 mt-md-3 mt-lg-4">
               <Col sm={8}>
+                <p className="m-0" style={{ fontSize: 12 }}>
+                  ID #{product.id}
+                </p>
                 <h3>{product.title}</h3>
               </Col>
               <Col className="text-md-right" sm={4}>
@@ -59,7 +66,7 @@ export const ItemDetail = ({ product }) => {
                 </h4>
               </Col>
             </Row>
-            <Row className="my-2 my-lg-3">
+            <Row className="my-2 my-lg-4">
               <Col>{product.description}</Col>
             </Row>{" "}
             <Row className="my-1">

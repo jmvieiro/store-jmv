@@ -2,18 +2,21 @@
 
 .itemDetail {
   border: 1px solid $base-navbar;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   background-color: #0f1c27;
   padding: 10px;
+  img {
+    opacity: 80%;
+  }
 }
 
-
 .itemDetailBadge {
+  z-index: 9;
   position: absolute;
-  right:16px;
-  bottom:1px;
+  right: 16px;
+  bottom: 1px;
   text-align: center;
-  color:white;
-  padding:3px 6px;
-  font-size:12px;
+  color: white;
+  padding: 3px 6px;
+  font-size: 12px;
 }

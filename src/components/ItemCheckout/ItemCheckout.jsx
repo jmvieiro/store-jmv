@@ -8,7 +8,7 @@ export const ItemCheckout = React.memo(
   ({ product, qty }) => {
     let remainingStock = product.stock - qty;
     return (
-      <Container className="itemDetail mb-2">
+      <Container className="itemCheckout mb-2">
         <Row noGutters>
           <Col className="p-2 px-lg-3" sm={2} md={3}>
             <img

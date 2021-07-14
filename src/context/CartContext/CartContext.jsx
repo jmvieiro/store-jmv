@@ -1,11 +1,10 @@
 import { SHOW_TOAST } from "../../utils/const";
 import React, { useEffect, useState } from "react";
-import { DATA, CATEGORIES } from "../../utils/const";
-import { Spinner } from "react-bootstrap";
+import { productsDB, categoriesDB } from "../../firebase/client";
+import { Loader } from "../../components/Loader/Loader";
+export const CartContext = React.createContext();
 
-export const CartContext = React.createContext([[], () => {}]);
-
-export const CartProvider = ({ defaultValue = [], children }) => {
+export const CartProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -98,22 +97,59 @@ export const CartProvider = ({ defaultValue = [], children }) => {
     }
 
     const getCategories = async () => {
-      const response = await fetch(`${CATEGORIES}`);
-      let p = await response.json();
-      setTimeout(() => {
-        setCategories(p);
-      }, 1000);
+      await categoriesDB.get().then((response) => {
+        setCategories(
+          response.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() };
+          })
+        );
+      });
     };
     getCategories();
+
     const getProducts = async () => {
-      const response = await fetch(`${DATA}`);
-      let p = await response.json();
-      setTimeout(() => {
-        setProducts(p);
-      }, 1000);
+      await productsDB.get().then((response) => {
+        setProducts(
+          response.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() };
+          })
+        );
+      });
     };
     getProducts();
   }, []);
+
+  const getProductById = async (id) => {
+    return await productsDB
+      .doc(id)
+      .get()
+      .then((response) => {
+        if (!response.exists) return null;
+        return { id: response.id, ...response.data() };
+      });
+  };
+
+  const getCategoryById = async (id) => {
+    return await categoriesDB
+      .doc(id)
+      .get()
+      .then((response) => {
+        if (!response.exists) return null;
+        return { id: response.id, ...response.data() };
+      });
+  };
+
+  const getProductsByCategory = async (id) => {
+    return await productsDB
+      .where("category", "==", id)
+      .get()
+      .then((response) => {
+        let aux = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        return aux;
+      });
+  };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -132,13 +168,16 @@ export const CartProvider = ({ defaultValue = [], children }) => {
         addItem,
         removeItem,
         clear,
+        getProductById,
+        getCategoryById,
+        getProductsByCategory,
       }}
     >
       {products.length > 0 && categories.length > 0 ? (
         children
       ) : (
-        <div className="mt-5 d-flex justify-content-center">
-          <Spinner align="center" animation="border" variant="info" />
+        <div className="d-flex justify-content-center">
+          <Loader />
         </div>
       )}{" "}
     </CartContext.Provider>

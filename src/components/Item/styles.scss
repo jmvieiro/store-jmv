@@ -3,14 +3,18 @@
 .card {
   border-color: $base-navbar;
   background-color: #0f1c27;
+  img {
+    opacity: 80%;
+  }
 }
 
 .itemBadge {
+  z-index: 9;
   position: absolute;
-  right:29px;
-  bottom:86px;
+  right: 29px;
+  bottom: 86px;
   text-align: center;
-  color:white;
-  padding:3px 6px;
-  font-size:12px;
+  color: white;
+  padding: 3px 6px;
+  font-size: 12px;
 }

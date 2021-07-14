@@ -8,16 +8,22 @@ import { CartContext } from "../../context/CartContext/CartContext";
 import "./styles.scss";
 
 export const ItemListContainer = () => {
-  const { products, categories } = useContext(CartContext);
+  const { products, categories, getCategoryById, getProductsByCategory } =
+    useContext(CartContext);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState(null);
   const { id } = useParams();
+
   useEffect(() => {
-    let cat = id ? categories.find((c) => c.id === parseInt(id)) : null;
-    let p = id ? products.filter((p) => p.category === parseInt(id)) : products;
-    setFilterProducts(p);
-    setCategory(cat);
-  }, [id, products, categories]);
+    const getCategoryById_ = async (id) => {
+      setCategory(id ? await getCategoryById(id) : null);
+    };
+    getCategoryById_(id);
+    const getProductsByCategory_ = async (id) => {
+      setFilterProducts(id ? await getProductsByCategory(id) : products);
+    };
+    getProductsByCategory_(id);
+  }, [id, products, getCategoryById, getProductsByCategory]);
 
   return (
     <Container>
@@ -48,7 +54,7 @@ export const ItemListContainer = () => {
           <h2 key={1} className="mb-3">
             {category ? `${category.name}` : ""}
           </h2>
-          {filterProducts.length === 0 ? (
+          {!filterProducts || filterProducts.length === 0 ? (
             <Alert key={2} variant="danger" align="left" className={"mt-3"}>
               No hay productos para mostrar.
             </Alert>

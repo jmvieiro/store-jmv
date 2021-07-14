@@ -18,9 +18,9 @@ export const Footer = () => {
                 className="mr-2"
               />
             </Link>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              quasi perferendis ratione perspiciatis accusantium.
+            <p className="mt-2">
+              <FontAwesomeIcon icon={["fas", "map-marker-alt"]} />{" "}Buenos Aires,
+              Argentina
             </p>
           </div>
           <div className="col-md text-md-center mt-4">
@@ -39,22 +39,38 @@ export const Footer = () => {
           <div className="col-md text-md-center mt-4">
             <ul className="social list-unstyled">
               <li>
-                <a href="/">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://facebook.com/jmvieiro"
+                >
                   <FontAwesomeIcon icon={["fab", "facebook-f"]} />
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://twitter.com/jmvieiro"
+                >
                   <FontAwesomeIcon icon={["fab", "twitter"]} />{" "}
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://instagram.com/jmvieiro"
+                >
                   <FontAwesomeIcon icon={["fab", "instagram"]} />{" "}
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://www.linkedin.com/in/javier-mart%C3%ADn-vieiro-a20b5316a/"
+                >
                   <FontAwesomeIcon icon={["fab", "linkedin"]} />{" "}
                 </a>
               </li>

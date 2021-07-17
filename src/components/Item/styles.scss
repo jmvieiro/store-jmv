@@ -1,20 +1,37 @@
 @import "../../App.scss";
 
-.card {
-  border-color: $base-navbar;
-  background-color: #0f1c27;
+.itemBadge {
+  z-index: 9;
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  text-align: center;
+  color: white;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
+.item {
+  border: 1px solid $base-navbar;
+  border-radius: 0.25rem;
+  padding: 4px;
   img {
-    opacity: .8;
+    opacity: 0.8;
+  }
+  @media (max-width: 767px) {
+    border-right: 0px;
+    border-bottom: 0px;
   }
 }
 
 .itemBadge {
   z-index: 9;
   position: absolute;
-  right: 29px;
-  bottom: 86px;
+  right: 17px;
+  bottom: 17px;
   text-align: center;
   color: white;
   padding: 3px 6px;
   font-size: 12px;
 }
+

@@ -1,27 +1,28 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Alert, Container } from "react-bootstrap";
 import { ItemDetail } from "../../components/ItemDetail/ItemDetail";
-import { CartContext } from "../../context/CartContext/CartContext";
 import { Loader } from "../../components/Loader/Loader";
+import { getProductById } from "../../firebase/client";
 
 export const ItemDetailContainer = () => {
-  const { getProductById } = useContext(CartContext);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getProductById_ = async (id) => {
-      setProduct(await getProductById(id));
+    const waitForData = async (id) => {
+      setProduct(id ? await getProductById(id) : null);
       setLoading(false);
     };
-    getProductById_(id);
-  }, [id, getProductById]);
+    waitForData(id);
+  }, [id]);
 
   return (
     <Container>
-      {!loading ? (
+      {loading ? (
+        <Loader />
+      ) : (
         [
           <h2 key={0} className="mb-3">
             Detalle del producto:
@@ -34,10 +35,6 @@ export const ItemDetailContainer = () => {
             <ItemDetail key={1} product={product} />
           ),
         ]
-      ) : (
-        <div className="mt-5 d-flex justify-content-center">
-          <Loader />
-        </div>
       )}
     </Container>
   );

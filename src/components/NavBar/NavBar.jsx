@@ -19,7 +19,7 @@ export const NavBar = ({ categories }) => {
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="flex-grow-1 d-block d-md-none mt-3">
+          <Nav className="flex-grow-1 d-block d-lg-none mt-3">
             {categories.map((cat) => {
               return (
                 <Nav.Link
@@ -35,7 +35,6 @@ export const NavBar = ({ categories }) => {
             })}
           </Nav>
           <Nav className="flex-grow-1 d-none d-lg-block"></Nav>
-
           <Nav className="mt-2">
             <Nav.Item>
               <CartWidget />

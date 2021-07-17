@@ -1,10 +1,10 @@
 @import "../../App.scss";
 
 .itemCheckout {
-  border: 1px solid $base-navbar;
+  border-top: 1px solid $base-navbar;
+  border-left: 1px solid $base-navbar;
   border-radius: 0.25rem;
-  background-color: #0f1c27;
-  padding: 10px;
+  padding: 4px;
   img {
     opacity: .8;
   }

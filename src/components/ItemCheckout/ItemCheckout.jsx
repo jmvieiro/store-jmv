@@ -8,9 +8,9 @@ export const ItemCheckout = React.memo(
   ({ product, qty }) => {
     let remainingStock = product.stock - qty;
     return (
-      <Container className="itemCheckout mb-2">
+      <Container className="itemCheckout mb-3">
         <Row noGutters>
-          <Col className="p-2 px-lg-3" sm={2} md={3}>
+          <Col className="p-2 px-lg-3" xs={4} >
             <img
               style={{ maxWidth: "100%" }}
               src={product.img}
@@ -18,7 +18,7 @@ export const ItemCheckout = React.memo(
               title={product.title}
             />
           </Col>
-          <Col className="px-1 px-sm-3 py-2" sm={10} md={9}>
+          <Col className="px-1 px-sm-3 py-2" xs={8} >
             <Row>
               <Col>
                 <h5 className="mb-0">{product.title}</h5>
@@ -38,10 +38,10 @@ export const ItemCheckout = React.memo(
             </Row>
             <Row>
               <Col>
-                <h6 className="mt-2" style={{ fontWeight: 300, fontSize: 14 }}>
+                <h6 className="mt-1" style={{ fontWeight: 300, fontSize: 14 }}>
                   {accounting.formatMoney(product.price, "$")} x un.
                 </h6>{" "}
-                <h6 className="mt-1" style={{ fontSize: 17 }}>
+                <h6 style={{ fontSize: 17 }}>
                   {accounting.formatMoney(product.price * qty, "$")} tot.
                 </h6>
               </Col>
@@ -53,8 +53,7 @@ export const ItemCheckout = React.memo(
   },
   (prevProps, nextProps) => {
     return (
-      prevProps.product === nextProps.product &&
-      prevProps.qty === nextProps.qty    
-      );
+      prevProps.product === nextProps.product && prevProps.qty === nextProps.qty
+    );
   }
 );

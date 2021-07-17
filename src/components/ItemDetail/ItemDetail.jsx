@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { ItemCounter } from "../ItemCounter/ItemCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
-import { ToastComponent } from "../ToastComponent/ToastComponent";
 import accounting from "accounting";
 import { CartContext } from "../../context/CartContext/CartContext.jsx";
+import { toast } from "react-toastify";
 
 import "./styles.scss";
 import { useEffect } from "react";
@@ -19,10 +19,11 @@ export const ItemDetail = ({ product }) => {
     setConfirm(true);
     addItem(product, c, false);
   }
-  
+
   useEffect(() => {
-    if (error) setConfirm(false);
-  }, [error, confirm]);
+    if (error) toast.error("😓 " + error);
+    if (msj) toast.info("😃 " + msj);
+  }, [error, msj]);
 
   let productInCart = cart.find((e) => e.product.id === product.id);
   let remainingStock = productInCart
@@ -124,8 +125,6 @@ export const ItemDetail = ({ product }) => {
                 )}
               </Col>
             </Row>
-            {msj && <ToastComponent msj={msj} type="ok" />}
-            {error && <ToastComponent msj={error} type="error" />}
           </Col>
         </Row>
       </Container>

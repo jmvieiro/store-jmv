@@ -5,3 +5,9 @@
   background-color: #030b16;
   border-radius: .25rem;
 }
+
+.carrito {
+  @media (max-width: 992px) {
+    font-size: 24px;
+  }
+}

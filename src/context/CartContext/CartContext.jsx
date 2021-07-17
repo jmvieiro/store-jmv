@@ -1,12 +1,10 @@
-import { SHOW_TOAST } from "../../utils/const";
+import firebase from "firebase/app";
 import React, { useEffect, useState } from "react";
-import { productsDB, categoriesDB } from "../../firebase/client";
-import { Loader } from "../../components/Loader/Loader";
+import { updateStock } from "../../firebase/client";
+
 export const CartContext = React.createContext();
 
 export const CartProvider = ({ children }) => {
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartSize, setCartSize] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
@@ -42,14 +40,12 @@ export const CartProvider = ({ children }) => {
             setMsj(
               "El producto ya estaba en el carrito. La cantidad del mismo ha sido actualizada."
             );
-            hideMsj();
           } else {
             setError(
               `El stock disponible es ${
                 cart[i].product.stock - cart[i].qty
               }. Ingresá una cantidad menor.`
             );
-            hideMsj();
             return;
           }
           break;
@@ -67,13 +63,6 @@ export const CartProvider = ({ children }) => {
     }
   }
 
-  function hideMsj() {
-    setTimeout(() => {
-      setMsj(null);
-      setError(null);
-    }, SHOW_TOAST + 100);
-  }
-
   function removeItem(id) {
     let aux = cart.filter(function (obj) {
       return obj.product.id !== id;
@@ -88,6 +77,23 @@ export const CartProvider = ({ children }) => {
     setCartTotal(0);
   }
 
+  const createOrder = (email, name, phone) => {
+    const order = {
+      buyer: { email: email, name: name, phone: phone },
+      detail: cart.map((element) => ({
+        idProduct: element.product.id,
+        title: element.product.title,
+        qty: element.qty,
+      })),
+      ts_created: firebase.firestore.Timestamp.fromDate(new Date()),
+      totalItems: cartSize,
+      total: cartTotal,
+    };
+    updateStock(order).then((response) => {
+      if (response === "ok") clear();
+    });
+  };
+
   useEffect(() => {
     const localCart = localStorage.getItem("cart");
     if (!localCart) localStorage.setItem("cart", JSON.stringify([]));
@@ -95,71 +101,17 @@ export const CartProvider = ({ children }) => {
       updateCart(JSON.parse(localCart));
       setCart(JSON.parse(localCart));
     }
-
-    const getCategories = async () => {
-      await categoriesDB.get().then((response) => {
-        setCategories(
-          response.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
-          })
-        );
-      });
-    };
-    getCategories();
-
-    const getProducts = async () => {
-      await productsDB.get().then((response) => {
-        setProducts(
-          response.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
-          })
-        );
-      });
-    };
-    getProducts();
   }, []);
-
-  const getProductById = async (id) => {
-    return await productsDB
-      .doc(id)
-      .get()
-      .then((response) => {
-        if (!response.exists) return null;
-        return { id: response.id, ...response.data() };
-      });
-  };
-
-  const getCategoryById = async (id) => {
-    return await categoriesDB
-      .doc(id)
-      .get()
-      .then((response) => {
-        if (!response.exists) return null;
-        return { id: response.id, ...response.data() };
-      });
-  };
-
-  const getProductsByCategory = async (id) => {
-    return await productsDB
-      .where("category", "==", id)
-      .get()
-      .then((response) => {
-        let aux = response.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
-        return aux;
-      });
-  };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    setMsj(null);
+    setError(null);
   }, [cart, cartSize, cartTotal]);
 
   return (
     <CartContext.Provider
       value={{
-        products,
-        categories,
         cart,
         cartSize,
         cartTotal,
@@ -168,18 +120,10 @@ export const CartProvider = ({ children }) => {
         addItem,
         removeItem,
         clear,
-        getProductById,
-        getCategoryById,
-        getProductsByCategory,
+        createOrder,
       }}
     >
-      {products.length > 0 && categories.length > 0 ? (
-        children
-      ) : (
-        <div className="d-flex justify-content-center">
-          <Loader />
-        </div>
-      )}{" "}
+      {children}{" "}
     </CartContext.Provider>
   );
 };

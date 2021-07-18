@@ -21,7 +21,6 @@ export const CheckoutForm = () => {
         "",
         "error"
       );
-      document.getElementById("checkoutForm.name").focus();
       return;
     }
     if (!form.email.includes("@")) {
@@ -30,7 +29,6 @@ export const CheckoutForm = () => {
         "",
         "error"
       );
-      document.getElementById("checkoutForm.email").focus();
       return;
     }
     if (!form.phone) {
@@ -39,7 +37,6 @@ export const CheckoutForm = () => {
         "",
         "error"
       );
-      document.getElementById("checkoutForm.phone").focus();
       return;
     }
     createOrder(form.email, form.name, form.phone);

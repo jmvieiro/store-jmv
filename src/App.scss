@@ -20,26 +20,31 @@ body,
   flex: 1 0 auto;
 }
 
-@keyframes animacion {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.swal2-popup {
+  width: 25em;
+  max-width: 100%;
+  background: $base-background;
+  border: 2px solid $base-navbar;
 }
 
-.animated {
-  animation-name: animacion;
+.swal2-title {
+  padding: 1em ;
+  color:  #fff;
+  font-size: 1.25em;
 }
 
-.Toastify__toast-container {
-  width: 400px !important;
-
+.swal2-html-container {
+  padding: 1em;
+  padding-top: .25em;
+  color: #fff;
+  font-size: 1.25em;
 }
 
-.Toastify__toast {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif !important;
+.swal2-actions {
+  margin: .1em auto 0;
+  font-size: 1em;
+}
+
+.swal2-icon {
+  margin: 1.5em auto .6em;
 }

@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import React, { useEffect, useState } from "react";
 import { updateStock } from "../../firebase/client";
+import { showTimerMessage } from "../../utils/helper";
 
 export const CartContext = React.createContext();
 
@@ -8,8 +9,6 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartSize, setCartSize] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  const [msj, setMsj] = useState(null);
-  const [error, setError] = useState(null);
 
   function getFrom(id) {
     return cart.find((p) => p.product.id === id);
@@ -37,14 +36,16 @@ export const CartProvider = ({ children }) => {
           if (update) cart[i].qty = qty;
           else if (cart[i].qty + qty <= cart[i].product.stock) {
             cart[i].qty += qty;
-            setMsj(
-              "El producto ya estaba en el carrito. La cantidad del mismo ha sido actualizada."
+            showTimerMessage(
+              `😎 El producto ya estaba en el carrito. La cantidad del mismo ha sido actualizada.`,
+              "info"
             );
           } else {
-            setError(
-              `El stock disponible es ${
+            showTimerMessage(
+              `😱 El stock disponible es ${
                 cart[i].product.stock - cart[i].qty
-              }. Ingresá una cantidad menor.`
+              }. Ingresá una cantidad menor.`,
+              "error"
             );
             return;
           }
@@ -105,8 +106,6 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
-    setMsj(null);
-    setError(null);
   }, [cart, cartSize, cartTotal]);
 
   return (
@@ -115,8 +114,6 @@ export const CartProvider = ({ children }) => {
         cart,
         cartSize,
         cartTotal,
-        msj,
-        error,
         addItem,
         removeItem,
         clear,

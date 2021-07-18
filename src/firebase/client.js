@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "@firebase/firestore";
-import { toast } from "react-toastify";
+import { showAlert } from "../utils/helper";
+
 //import "@firebase/storage";
 
 const firebaseConfig = firebase.initializeApp({
@@ -43,9 +44,11 @@ export const getCategories = () => {
       });
     })
     .catch((res) => {
-      let error = `😱 Ha ocurrido un error al obtener las categorías: ${res}`;
-      toast.error(error);
-      console.log(error);
+      showAlert(
+        `😱 Ha ocurrido un error al obtener las categorías:`,
+        res,
+        "error"
+      );
       return [];
     });
 };
@@ -60,9 +63,11 @@ export const getProducts = () => {
       });
     })
     .catch((res) => {
-      let error = `😱 Ha ocurrido un error al obtener los productos: ${res}`;
-      toast.error(error);
-      console.log(error);
+      showAlert(
+        `😱 Ha ocurrido un error al obtener los productos:`,
+        res,
+        "error"
+      );
       return [];
     });
 };
@@ -76,9 +81,11 @@ export const getProductById = (id) => {
       return { id: response.id, ...response.data() };
     })
     .catch((res) => {
-      let error = `😱 Ha ocurrido un error al obtener el producto por id: ${res}`;
-      toast.error(error);
-      console.log(error);
+      showAlert(
+        `😱 Ha ocurrido un error al obtener el producto por id:`,
+        res,
+        "error"
+      );
       return {};
     });
 };
@@ -93,9 +100,11 @@ export const getProductsByCategory = (id) => {
       });
     })
     .catch((res) => {
-      let error = `😱 Ha ocurrido un error al obtener los productos por categoría: ${res}`;
-      toast.error(error);
-      console.log(error);
+      showAlert(
+        `😱 Ha ocurrido un error al obtener los productos por categoría:`,
+        res,
+        "error"
+      );
       return [];
     });
 };
@@ -109,9 +118,11 @@ export const getCategoryById = (id) => {
       return { id: response.id, ...response.data() };
     })
     .catch((res) => {
-      let error = `😱 Ha ocurrido un error al obtener la categoría por id: ${res}`;
-      toast.error(error);
-      console.log(error);
+      showAlert(
+        `😱 Ha ocurrido un error al obtener la categoría por id:`,
+        res,
+        "error"
+      );
       return {};
     });
 };
@@ -120,16 +131,14 @@ const generateOrder = (order) => {
   ordersDB
     .add(order)
     .then(({ id }) => {
-      toast.success(`😎 La orden #${id} ha sido generada con éxito.`, {
-        autoClose: 10000,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showAlert(
+        `😎 La orden ha sido generada con éxito:`,
+        `Guardá este código: ${id}. <br/> Gracias por tu compra ❤️.`,
+        "success"
+      );
     })
     .catch((res) => {
-      let error = `😱 Ha ocurrido un error al generar la orden: ${res}`;
-      toast.error(error);
-      console.log(error);
+      showAlert(`😱 Ha ocurrido un error al generar la orden:`, res, "error");
       return {};
     });
 };
@@ -162,14 +171,16 @@ export const updateStock = async (newOrder) => {
   } else {
     let aux = outOfStock
       .map((element) => {
-        return element.title;
+        return `${element.title} [disponible: ${element.stock} ${
+          element.stock === 1 ? "unidad" : "unidades"
+        }]`;
       })
       .join(", ");
-    let error = `😱 Alguno de los productos seleccionados no tienen stock: ${aux}.`;
-    toast.error(error, {
-      autoClose: false,
-    });
-    console.log(error);
+    showAlert(
+      `😱 Sin stock`,
+      `Modificá el stock de los productos: ${aux}.`,
+      "error"
+    );
     return "error";
   }
 };

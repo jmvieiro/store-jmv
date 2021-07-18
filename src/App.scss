@@ -21,30 +21,30 @@ body,
 }
 
 .swal2-popup {
-  width: 25em;
-  max-width: 100%;
-  background: $base-background;
-  border: 2px solid $base-navbar;
+  width: 25em !important;
+  max-width: 100% !important;
+  background: $base-background !important;
+  border: 2px solid $base-navbar !important;
 }
 
 .swal2-title {
-  padding: 1em ;
-  color:  #fff;
-  font-size: 1.25em;
+  padding: 1em !important;
+  color:  #fff !important;
+  font-size: 1.25em !important;
 }
 
 .swal2-html-container {
-  padding: 1em;
-  padding-top: .25em;
-  color: #fff;
-  font-size: 1.25em;
+  padding: 1em !important;
+  padding-top: .25em !important;
+  color: #fff !important;
+  font-size: 1.25em !important;
 }
 
 .swal2-actions {
-  margin: .1em auto 0;
-  font-size: 1em;
+  margin: .1em auto 0 !important;
+  font-size: 1em !important;
 }
 
 .swal2-icon {
-  margin: 1.5em auto .6em;
+  margin: 1.5em auto .6em !important;
 }

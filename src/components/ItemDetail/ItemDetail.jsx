@@ -6,24 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import accounting from "accounting";
 import { CartContext } from "../../context/CartContext/CartContext.jsx";
-import { toast } from "react-toastify";
-
 import "./styles.scss";
-import { useEffect } from "react";
 
 export const ItemDetail = ({ product }) => {
-  const { cart, addItem, msj, error } = useContext(CartContext);
+  const { cart, addItem } = useContext(CartContext);
   const [confirm, setConfirm] = useState(false);
   let aux = cart.find((c) => c.product.id === product.id);
   function onAdd(c) {
     setConfirm(true);
     addItem(product, c, false);
   }
-
-  useEffect(() => {
-    if (error) toast.error("😓 " + error);
-    if (msj) toast.info("😃 " + msj);
-  }, [error, msj]);
 
   let productInCart = cart.find((e) => e.product.id === product.id);
   let remainingStock = productInCart

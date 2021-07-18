@@ -4,9 +4,9 @@ import { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 import "./styles.scss";
+import { showAlert } from "../../utils/helper";
 
 export const CheckoutForm = () => {
   const { createOrder } = useContext(CartContext);
@@ -16,17 +16,29 @@ export const CheckoutForm = () => {
   }, []);
   const confirmarCarrito = () => {
     if (!form.name) {
-      toast.error("😓 Ingresá tu nombre para completar el checkout.");
+      showAlert(
+        "😓 Ingresá tu nombre para completar el checkout.",
+        "",
+        "error"
+      );
       document.getElementById("checkoutForm.name").focus();
       return;
     }
     if (!form.email.includes("@")) {
-      toast.error("😓 Ingresá un email válido para completar el checkout.");
+      showAlert(
+        "😓 Ingresá un email válido para completar el checkout.",
+        "",
+        "error"
+      );
       document.getElementById("checkoutForm.email").focus();
       return;
     }
     if (!form.phone) {
-      toast.error("😓 Ingresá un teléfono para completar el checkout. ");
+      showAlert(
+        "😓 Ingresá un teléfono para completar el checkout.",
+        "",
+        "error"
+      );
       document.getElementById("checkoutForm.phone").focus();
       return;
     }

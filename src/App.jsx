@@ -5,6 +5,7 @@ import { NavBarContainer } from "./containers/NavBarContainer/NavBarContainer";
 import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
 import { ItemDetailContainer } from "./containers/ItemDetailContainer/ItemDetailContainer";
 import { ItemCheckoutContainer } from "./containers/ItemCheckoutContainer/ItemCheckoutContainer";
+import { NotFound } from "./components/NotFound/NotFound";
 import { FooterContainer } from "./containers/FooterContainer/FooterContainer";
 import { CartProvider } from "./context/CartContext/CartContext";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/category/:id" component={ItemListContainer} />
             <Route exact path="/item/:id" component={ItemDetailContainer} />
             <Route exact path="/cart" component={ItemCheckoutContainer} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </div>
         <footer className="footer">

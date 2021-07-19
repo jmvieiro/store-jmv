@@ -132,8 +132,8 @@ const generateOrder = (order) => {
     .add(order)
     .then(({ id }) => {
       showAlert(
-        `😎 La orden ha sido generada con éxito:`,
-        `Guardá este código: ${id}. <br/> Gracias por tu compra ❤️.`,
+        `😎 La orden ha sido generada con éxito`,
+        `Guardá este código: <strong>${id}</strong><br/> <br/> ❤️ Gracias por tu compra ❤️`,
         "success"
       );
     })
@@ -144,15 +144,36 @@ const generateOrder = (order) => {
 };
 
 export const updateStock = async (newOrder) => {
-  const db = firebase.firestore(firebaseConfig);
-
-  const productsToUpdate = db.collection("products").where(
+  const productsToUpdate = productsDB.where(
     firebase.firestore.FieldPath.documentId(),
     "in",
     newOrder.detail.map((element) => element.idProduct)
   );
 
   const query = await productsToUpdate.get();
+
+  const notFound = [];
+
+  newOrder.detail.forEach((element) => {
+    let aux = query.docs.find((e) => e.id === element.idProduct);
+    if (!aux) notFound.push(element);
+  });
+
+  if (notFound.length !== 0) {
+    let aux = notFound
+      .map((element) => {
+        return element.title;
+      })
+      .join(", ");
+    showAlert(
+      `😱 Productos no encontrados`,
+      `Eliminá estos productos de tu carrito: ${aux}.`,
+      "error"
+    );
+    return "error";
+  }
+
+  const db = firebase.firestore(firebaseConfig);
   const batch = db.batch();
   const outOfStock = [];
 

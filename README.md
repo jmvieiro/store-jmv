@@ -41,7 +41,7 @@ Incluido en la ruta "/cart" donde se podrá ver el detalle de los productos incl
 
 ### Helpers Components
 
-Adicionalmente, se crearon dos componentes como "helpers":
+Adicionalmente, se crearon 3 (tres) componentes como "helpers":
 
 #### - ButtonComponent
 

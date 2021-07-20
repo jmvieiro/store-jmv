@@ -22,9 +22,7 @@ export const ItemListContainer = () => {
   useEffect(() => {
     setLoading(true);
     const waitForData = async (id) => {
-      setFilterProducts(
-        id ? await getProductsByCategory(id) : await getProducts()
-      );
+      setFilterProducts(id ? await getProductsByCategory(id) : await getProducts());
       setCategory(id ? await getCategoryById(id) : null);
       setLoading(false);
     };

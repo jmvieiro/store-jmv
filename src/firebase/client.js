@@ -93,6 +93,7 @@ export const getProductById = (id) => {
 export const getProductsByCategory = (id) => {
   return productsDB
     .where("category", "==", id)
+    .where("stock", ">", 0)
     .get()
     .then((response) => {
       return response.docs.map((doc) => {
@@ -127,9 +128,9 @@ export const getCategoryById = (id) => {
     });
 };
 
-const generateOrder = (order) => {
+const generateOrder = (newOrder) => {
   ordersDB
-    .add(order)
+    .add(newOrder)
     .then(({ id }) => {
       showAlert(
         `😎 La orden ha sido generada con éxito`,

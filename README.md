@@ -6,9 +6,10 @@ Este proyecto fue inicializado con [Create React App] (https://github.com/facebo
 
 ## Sobre el proyecto
 
-Este proyecto está siendo llevado a cabo con fines académicos, tratando de respetar las mejores prácticas obtenidas en clase, en el marco del curso de ReactJS brindado por CoderHouse.
+Este proyecto fue llevado a cabo con fines académicos, tratando de respetar las mejores prácticas obtenidas en clase, en el marco del curso de ReactJS brindado por CoderHouse.
+
 El proyecto consiste en la realización de un e-commerce, denominado JMV Store, a través del cual se podrán probar las principales funcionalidades aprendidas.
-Tanto los productos como las categorías son obtenidas utilizando el método "await fetch" simulando un request al servidor, incorporando un setTimeout.
+
 Para la realización del proyecto, se instalaron las siguientes dependencias:
 
 - framework de Bootstrap, optimizado para React (https://react-bootstrap.github.io/), para la utilización de componentes pre-armados, con estilos pre-definidos, los cuales fueron adaptados para su mejor uso.

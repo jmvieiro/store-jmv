@@ -11,29 +11,32 @@ import { CartProvider } from "./context/CartContext/CartContext";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { ShopProvider } from "./context/ShopContext/ShopContext";
 library.add(fab, fas);
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <header style={{ marginBottom: "5rem" }}>
-          <NavBarContainer />
-        </header>
-        <div className="content">
-          <Switch>
-            <Route exact path="/" component={ItemListContainer} />
-            <Route exact path="/category/:id" component={ItemListContainer} />
-            <Route exact path="/item/:id" component={ItemDetailContainer} />
-            <Route exact path="/cart" component={ItemCheckoutContainer} />
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </div>
-        <footer className="footer">
-          <FooterContainer />
-        </footer>
-      </BrowserRouter>
-    </CartProvider>
+    <ShopProvider>
+      <CartProvider>
+        <BrowserRouter>
+          <header style={{ marginBottom: "5rem" }}>
+            <NavBarContainer />
+          </header>
+          <div className="content">
+            <Switch>
+              <Route exact path="/" component={ItemListContainer} />
+              <Route exact path="/category/:id" component={ItemListContainer} />
+              <Route exact path="/item/:id" component={ItemDetailContainer} />
+              <Route exact path="/cart" component={ItemCheckoutContainer} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </div>
+          <footer className="footer">
+            <FooterContainer />
+          </footer>
+        </BrowserRouter>
+      </CartProvider>
+    </ShopProvider>
   );
 }
 

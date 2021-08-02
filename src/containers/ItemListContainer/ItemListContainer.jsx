@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col, Alert, Container } from "react-bootstrap";
 import { ItemList } from "../../components/ItemList/ItemList";
 import { Link } from "react-router-dom";
 import "./styles.scss";
-import {
-  getCategories,
-  getCategoryById,
-  getProducts,
-  getProductsByCategory,
-} from "../../firebase/client";
+import { getCategoryById, getProductsByCategory } from "../../firebase/client";
 import { Loader } from "../../components/Loader/Loader";
+import { ShopContext } from "../../context/ShopContext/ShopContext";
 
 export const ItemListContainer = () => {
-  const [categories, setCategories] = useState([]);
+  const { categories, products } = useContext(ShopContext);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,19 +18,19 @@ export const ItemListContainer = () => {
   useEffect(() => {
     setLoading(true);
     const waitForData = async (id) => {
-      setFilterProducts(id ? await getProductsByCategory(id) : await getProducts());
-      setCategory(id ? await getCategoryById(id) : null);
+      let cat = null;
+      if (id) {
+        cat = categories.find((c) => c.id === id);
+        if (!cat) cat = await getCategoryById(id);
+        let prods = products.filter((p) => p.category === id);
+        if (prods.length !== 0) setFilterProducts(prods);
+        else setFilterProducts(await getProductsByCategory(id));
+      } else setFilterProducts(products);
+      setCategory(cat);
       setLoading(false);
     };
     waitForData(id);
-  }, [id]);
-
-  useEffect(() => {
-    const waitForData = async () => {
-      setCategories(await getCategories());
-    };
-    waitForData();
-  }, []);
+  }, [id, categories, products]);
 
   return (
     <Container>

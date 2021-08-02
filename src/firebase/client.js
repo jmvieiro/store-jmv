@@ -72,6 +72,20 @@ export const getProducts = () => {
     });
 };
 
+productsDB.where("stock", ">", 0).onSnapshot((querySnapshot) => {
+  querySnapshot.docChanges().forEach((change) => {
+    if (change.type === "added") {
+      console.log("New: ", change.doc.data());
+    }
+    if (change.type === "modified") {
+      console.log("Modified: ", change.doc.data());
+    }
+    if (change.type === "removed") {
+      console.log("Removed: ", change.doc.data());
+    }
+  });
+});
+
 export const getProductById = (id) => {
   return productsDB
     .doc(id)

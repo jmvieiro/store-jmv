@@ -21,27 +21,35 @@ Para la realización del proyecto, se instalaron las siguientes dependencias:
 
 ### Containers y Components principales
 
-Se definieron 4 (cuatro) grandes contenedores, invocados desde App.jsx:
+Se definieron 5 (cinco) grandes contenedores, invocados desde App.jsx:
 
 #### - NavBarContainer
 
-Incluido en toda la navegación de la tienda, incorpora el logo de la tienda, las categorías (public/assets/categories.json) y el carrito de compras. Los componentes que lo conforman son: "NavBar" y "CartWidget".
+Incluido en toda la navegación de la tienda, incorpora el logo de la tienda, las categorías y el carrito de compras. Los componentes que lo conforman son: "NavBar" y "CartWidget".
+Para mostrar el listado de categorías, se utilizan "categories" obtenidas del "ShopContext".
 
-#### - ItemListContianer
+#### - ItemListContainer
 
-Incluido en la ruta "/" y en "/category/:id", para mostrar todos los productos disponibles (public/assets/products.json), y navegar su agrupación por categoría. Los componentes que lo conforman son: "ItemList" que recibe los productos obtenidos del container e itera por cada uno de ellos, invocando los "Item" -card del producto propiamente dicha-.
+Incluido en la ruta "/" y en "/category/:id", para mostrar todos los productos disponibles, y navegar su agrupación por categoría. Los componentes que lo conforman son: "ItemList" que recibe los productos obtenidos del container e itera por cada uno de ellos, invocando los "Item" -card del producto propiamente dicha-.
+Para mostrar el listado de productos y categorías, se utilizan "products" y "categories" obtenidos del "ShopContext". En caso de estar navegando una categoría en particular, se filtra sobre el context. En caso de no encontrar ningún producto con la categoría deseada, entonces se intenta obtener desde la base de datos, utilizando "getProductsByCategory".
 
 #### - ItemDetailContainer
 
-Incluido en la ruta "/item/:id" donde se podrá ver el detalle del producto seleccionado. Los componentes que lo conforman son: "ItemDetail", que muestra título, descripción, precio, stock, imagen, y, el "ItemCounter" que en caso de haber stock disponible, permite incluir la cantidad deseada del producto en el carrito de compras del "NavBar" (en caso de no haber stock disponible, informa dicha situación) y finalmente, visualizar el botón de "Terminar mi compra" para acceder al detalle de los productos incluidos en el carrito de compras.
+Incluido en la ruta "/item/:id" donde se podrá ver el detalle del producto seleccionado. Los componentes que lo conforman son: "ItemDetail", que muestra título, descripción, precio, stock, imagen, y, el "ItemCounter" que en caso de haber stock disponible, permite incluir la cantidad deseada del producto en el carrito de compras del "NavBar" (en caso de haber stock disponible) y finalmente, permite "Continuar comprando" o "Terminar mi compra" para acceder al detalle de los productos incluidos en el carrito de compras.
+Para mostrar el producto deseado, es requisito precisar un "id" y se filtra de "products" obtenidos del "ShopContext". En caso de no encontrar ningún producto con el "id" deseado, entonces se intenta obtener desde la base de datos, utilizando "getProductById".
 
 #### - ItemCheckoutContainer
 
-Incluido en la ruta "/cart" donde se podrá ver el detalle de los productos incluidos en el carrito y el total a abonar. Por el momento, no está desarrollada en su totalidad el funcionamiento de este contenedor. Los componentes que lo conforman son: "ItemListCheckout" que recibe los productos incluidos en el carrito e itera por cada uno de ellos, invocando los "ItemCheckout" que muestran cada producto incluido en el carrito, junto con el total a abonar y el botón de confirmar carrito.
+Incluido en la ruta "/cart" donde se podrá ver el detalle de los productos incluidos en el carrito y el total a abonar. Por el momento, no está desarrollada en su totalidad el funcionamiento de este contenedor. Los componentes que lo conforman son: "ItemListCheckout" que recibe los productos incluidos en el carrito e itera por cada uno de ellos, invocando los "ItemCheckout" que muestran cada producto incluido en el carrito, permitiendo vaciar el carrito, y mostrando el total a abonar.
+Incluye el "CheckoutForm" que permite completar los datos del comprador (nombre, teléfono y correo electrónico), y tiene el botón para finalizar la compra. El botón para finalizar la compra, envía el carrito y los datos del comprador. De cada producto incluido en el carrito se valida la existencia del mismo (si no existe, se indica que hay que eliminar el producto del carrito) y si existe, se valida que haya stock disponible. Si no hay stock disponible se indica que debe ser modificado del carrito, y si hay stock disponible, se actualiza el stock del producto en la base de datos y se genera la orden, entregando al comprador el ID de la transacción.
+
+#### - FooterContainer
+
+Incluye el componente "Footer", que muestra el contenido del pie común a todas las páginas de navegación.
 
 ### Helpers Components
 
-Adicionalmente, se crearon 3 (tres) componentes como "helpers":
+Adicionalmente, se crearon 4 (cuatro) componentes como "helpers":
 
 #### - ButtonComponent
 
@@ -51,9 +59,27 @@ Otorga personalización al "Button" nativo de React Bootstrap.
 
 Define que el texto allí contenido se visualice solo en resoluciones "xs".
 
-#### - CheckoutForm
+#### - NotFound
 
-Para completar los datos del comprador (nombre, teléfono y correo electrónico), y tiene el botón para finalizar la compra. El botón para finalizar la compra, envía el carrito y los datos del comprador. De cada producto incluido en el carrito se valida la existencia del mismo (si no existe, se indica que hay que eliminar el producto del carrito) y si existe, se valida que haya stock disponible. Si no hay stock disponible se indica que debe ser modificado del carrito, y si hay stock disponible, se actualiza el stock del producto en la base de datos y se genera la orden, entregando al comprador el ID de la transacción.
+Para URL no encontradas: informa del error y permite volver a la "home".
+
+#### - Loader
+
+Contiene un "spinner" que muestra que la aplicación está procesando una petición.
+
+### Context
+
+Como variables comunes a toda la aplicación se generaron dos contextos:
+
+#### - ShopContext
+
+Se utiliza para traer las categorías (getCategories) y los productos (getProducts) una única vez al iniciar la aplicación.
+Al tratarse de un e-commerce con pocos productos y categorías, se optó para ir a la base de datos la menor cantidad de veces posibles para traer ambas colecciones.
+
+#### - CartContext
+
+Se utiliza para almacenar los productos que el usuario va cargando en su carrito de compras.
+Se utiliza localStorage para resguardar el carrito y cuando el usuario reingrese a la aplicación encuentre los productos que había incorporado en ocasiones anteriores.
 
 ### Firebase
 

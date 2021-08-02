@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
-import { getCategories } from "../../firebase/client";
-
+import { ShopContext } from "../../context/ShopContext/ShopContext";
 
 export const NavBarContainer = () => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const waitForData = async () => {
-      setCategories(await getCategories());
-    };
-    waitForData();
-  }, []);
+  const { categories } = useContext(ShopContext);
   return <NavBar categories={categories} />;
 };

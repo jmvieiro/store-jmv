@@ -90,8 +90,9 @@ export const CartProvider = ({ children }) => {
       totalItems: cartSize,
       total: cartTotal,
     };
-    updateStock(order).then((response) => {
+    return updateStock(order).then((response) => {
       if (response === "ok") clear();
+      return response;
     });
   };
 

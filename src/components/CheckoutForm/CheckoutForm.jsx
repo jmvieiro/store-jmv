@@ -11,6 +11,7 @@ import { showAlert } from "../../utils/helper";
 export const CheckoutForm = () => {
   const { createOrder } = useContext(CartContext);
   const [form, setForm] = useState({ email: "", name: "", phone: "" });
+  const [loadingButton, setLoadingButton] = useState(false);
   useEffect(() => {
     document.getElementById("checkoutForm.name").focus();
   }, []);
@@ -39,7 +40,18 @@ export const CheckoutForm = () => {
       );
       return;
     }
-    createOrder(form.email, form.name, form.phone);
+
+    const waitForData = async () => {
+      let btn = document.getElementById("btnConfirm");
+      btn.disabled = true;
+      setLoadingButton(true);
+      const res = await createOrder(form.email, form.name, form.phone);
+      if (res !== "ok") {
+        btn.disabled = false;
+        setLoadingButton(false);
+      }
+    };
+    waitForData();
   };
   return (
     <>
@@ -77,6 +89,8 @@ export const CheckoutForm = () => {
               <FontAwesomeIcon icon={"cart-plus"} title="Confirmar carrito" />
             }
             onClick={confirmarCarrito}
+            id="btnConfirm"
+            loading={loadingButton}
             block={true}
           ></ButtonComponent>
         </Form.Group>

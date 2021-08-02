@@ -78,8 +78,39 @@ Al tratarse de un e-commerce con pocos productos y categorías, se optó para ir
 
 #### - CartContext
 
-Se utiliza para almacenar los productos que el usuario va cargando en su carrito de compras.
+Se utiliza para almacenar los productos que el usuario va cargando en su carrito de compras y todas las operaciones relacionadas al mismo.
 Se utiliza localStorage para resguardar el carrito y cuando el usuario reingrese a la aplicación encuentre los productos que había incorporado en ocasiones anteriores.
+
+ ##### - getFrom (id) 
+ 
+ Obtiene un producto del carrito.
+ ##### - isInCart (id) 
+ 
+ Verifica si un producto del carrito está en el carrito.
+
+##### - updateCart (_cart) 
+ 
+Actualiza la cantidad total de productos y el importe total.
+
+##### - addItem (obj, qty, update) 
+ 
+Agrega un producto al carrito. 
+Si el producto ya estaba en el carrito, actualiza su cantidad. Sino, incorpora el mismo al carrito.
+Si la actualizacion de la cantidad se invoca desde el "ItemDetail" (update == false), acumula la cantidad del producto.
+Si la actualización de la cantidad se invoca desde el "ItemCheckout" (update == true), sobreescribe la cantidad directamente, en lugar de acumular.
+Invoca a updateCart.
+##### - removeItem (id) 
+ 
+Elimina un producto del carrito. 
+Invoca a updateCart.
+
+##### - clear () 
+ 
+Vacía el carrito.
+
+##### - clear (email, name, phone) 
+ 
+Invoca la generación de la orden, con los datos del comprador y los ítems incluidos en el carrito.
 
 ### Firebase
 

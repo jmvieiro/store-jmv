@@ -220,3 +220,21 @@ export const updateStock = async (newOrder) => {
     return "error";
   }
 };
+
+export const getOrders = () => {
+  return ordersDB
+    .get()
+    .then((response) => {
+      return response.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+    })
+    .catch((res) => {
+      showAlert(
+        `😱 Ha ocurrido un error al obtener las órdenes:`,
+        res,
+        "error"
+      );
+      return [];
+    });
+};

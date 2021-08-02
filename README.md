@@ -46,6 +46,12 @@ Incluye el "CheckoutForm" que permite completar los datos del comprador (nombre,
 #### - FooterContainer
 
 Incluye el componente "Footer", que muestra el contenido del pie común a todas las páginas de navegación.
+Contiene un acceso a "Ver órdenes", que permite acceder al "OrdersContainer".
+
+#### - OrdersContainer
+
+\***\* Solo a efectos académicos \*\***
+Se listan las órdenes generadas y almacenadas en la base de datos para poder corrobar el correcto funcionamiento de la aplicación.
 
 ### Helpers Components
 
@@ -81,35 +87,37 @@ Al tratarse de un e-commerce con pocos productos y categorías, se optó para ir
 Se utiliza para almacenar los productos que el usuario va cargando en su carrito de compras y todas las operaciones relacionadas al mismo.
 Se utiliza localStorage para resguardar el carrito y cuando el usuario reingrese a la aplicación encuentre los productos que había incorporado en ocasiones anteriores.
 
- ##### - getFrom (id) 
- 
- Obtiene un producto del carrito.
- ##### - isInCart (id) 
- 
- Verifica si un producto del carrito está en el carrito.
+##### - getFrom (id)
 
-##### - updateCart (_cart) 
- 
+Obtiene un producto del carrito.
+
+##### - isInCart (id)
+
+Verifica si un producto del carrito está en el carrito.
+
+##### - updateCart (\_cart)
+
 Actualiza la cantidad total de productos y el importe total.
 
-##### - addItem (obj, qty, update) 
- 
-Agrega un producto al carrito. 
+##### - addItem (obj, qty, update)
+
+Agrega un producto al carrito.
 Si el producto ya estaba en el carrito, actualiza su cantidad. Sino, incorpora el mismo al carrito.
 Si la actualizacion de la cantidad se invoca desde el "ItemDetail" (update == false), acumula la cantidad del producto.
 Si la actualización de la cantidad se invoca desde el "ItemCheckout" (update == true), sobreescribe la cantidad directamente, en lugar de acumular.
 Invoca a updateCart.
-##### - removeItem (id) 
- 
-Elimina un producto del carrito. 
+
+##### - removeItem (id)
+
+Elimina un producto del carrito.
 Invoca a updateCart.
 
-##### - clear () 
- 
+##### - clear ()
+
 Vacía el carrito.
 
-##### - clear (email, name, phone) 
- 
+##### - clear (email, name, phone)
+
 Invoca la generación de la orden, con los datos del comprador y los ítems incluidos en el carrito.
 
 ### Firebase
@@ -147,3 +155,7 @@ Si ambas validaciones son superadas, se actualiza el stock de cada producto y se
 #### - generateOrder (newOrder)
 
 Genera la orden, persistiendo la misma en la base de datos y otorga al usuario el Id de la transacción generado.
+
+### Implementación en Vercel
+
+Para su prueba se puede acceder a https://store-jmv.vercel.app/.

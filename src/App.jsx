@@ -5,6 +5,7 @@ import { NavBarContainer } from "./containers/NavBarContainer/NavBarContainer";
 import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
 import { ItemDetailContainer } from "./containers/ItemDetailContainer/ItemDetailContainer";
 import { ItemCheckoutContainer } from "./containers/ItemCheckoutContainer/ItemCheckoutContainer";
+import { OrdersContainer } from "./containers/OrdersContainer/OrdersContainer";
 import { NotFound } from "./components/NotFound/NotFound";
 import { FooterContainer } from "./containers/FooterContainer/FooterContainer";
 import { CartProvider } from "./context/CartContext/CartContext";
@@ -28,6 +29,7 @@ function App() {
               <Route exact path="/category/:id" component={ItemListContainer} />
               <Route exact path="/item/:id" component={ItemDetailContainer} />
               <Route exact path="/cart" component={ItemCheckoutContainer} />
+              <Route exact path="/orders" component={OrdersContainer} />
               <Route path="*" component={NotFound} />
             </Switch>
           </div>

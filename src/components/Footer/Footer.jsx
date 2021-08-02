@@ -32,7 +32,7 @@ export const Footer = () => {
                 <a href="/">Términos y condiciones</a>
               </li>
               <li>
-                <a href="/">Partners</a>
+                <a href="/orders">Ver órdenes</a>
               </li>
             </ul>
           </div>

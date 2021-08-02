@@ -116,7 +116,7 @@ Invoca a updateCart.
 
 Vacía el carrito.
 
-##### - clear (email, name, phone)
+##### - createOrder (email, name, phone)
 
 Invoca la generación de la orden, con los datos del comprador y los ítems incluidos en el carrito.
 

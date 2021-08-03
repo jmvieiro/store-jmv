@@ -1,7 +1,8 @@
-import { APP_NAME } from "../../utils/const";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./styles.scss";
+
+import { APP_NAME } from "../../utils/const";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -19,20 +20,20 @@ export const Footer = () => {
               />
             </Link>
             <p className="mt-2">
-              <FontAwesomeIcon icon={["fas", "map-marker-alt"]} />{" "}Buenos Aires,
+              <FontAwesomeIcon icon={["fas", "map-marker-alt"]} /> Buenos Aires,
               Argentina
             </p>
           </div>
           <div className="col-md text-md-center mt-4">
             <ul className="list-unstyled nav-links">
               <li>
-                <a href="/">Politicas de privacidad</a>
+                <Link to={`/`}>Políticas de privacidad</Link>
               </li>
               <li>
-                <a href="/">Términos y condiciones</a>
+                <Link to={`/`}>Términos y condiciones</Link>
               </li>
               <li>
-                <a href="/orders">Ver órdenes</a>
+                <Link to={`/orders`}>Ver órdenes</Link>
               </li>
             </ul>
           </div>
@@ -76,9 +77,9 @@ export const Footer = () => {
               </li>
             </ul>
             <p>
-              <a href="/" className="btn btn-tertiary">
+              <Link to={`/`} className="btn btn-tertiary">
                 Contactanos
-              </a>
+              </Link>
             </p>
           </div>
         </div>

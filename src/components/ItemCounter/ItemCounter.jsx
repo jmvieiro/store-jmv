@@ -1,9 +1,11 @@
+import "./styles.scss";
+
+import { Button, Col, FormControl, InputGroup, Row } from "react-bootstrap";
 import { useContext, useState } from "react";
-import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import { CartContext } from "../../context/CartContext/CartContext";
-import "./styles.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ItemCounter = ({
   product,
@@ -41,14 +43,14 @@ export const ItemCounter = ({
     }
   };
   const manualChange = (e) => {
-    let value = e.target.value;
+    let value = parseInt(e.target.value);
     if (checkout) {
       if (value > 1 && value < remainingStock) {
         addItem(product, value, true);
         setCounter(value);
       } else {
-        addItem(product, remainingStock, true);
-        setCounter(remainingStock);
+        addItem(product, product.stock, true);
+        setCounter(product.stock);
       }
     } else {
       if (value > 1 && value < remainingStock) setCounter(value);

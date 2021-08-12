@@ -37,9 +37,12 @@ export const CartProvider = ({ children }) => {
       let aux = [...cart];
       for (var i in aux) {
         if (aux[i].product.id === obj.id) {
-          if (update) aux[i].qty = qty;
-          else if (aux[i].qty + qty <= aux[i].product.stock) {
-            aux[i].qty += qty;
+          if (update) aux[i].qty = parseInt(qty);
+          else if (
+            parseInt(aux[i].qty) + parseInt(qty) <=
+            aux[i].product.stock
+          ) {
+            aux[i].qty = parseInt(aux[i].qty) + parseInt(qty);
             showTimerMessage(
               `😎 El producto ya estaba en el carrito. La cantidad del mismo ha sido actualizada.`,
               "info"
@@ -47,7 +50,7 @@ export const CartProvider = ({ children }) => {
           } else {
             showTimerMessage(
               `😱 El stock disponible es ${
-                aux[i].product.stock - aux[i].qty
+                aux[i].product.stock - parseInt(aux[i].qty)
               }. Ingresá una cantidad menor.`,
               "error"
             );

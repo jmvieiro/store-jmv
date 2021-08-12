@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
     let total = 0,
       size = 0;
     cart_.forEach((element) => {
-      size += element.qty;
+      size += parseInt(element.qty);
       total += element.qty * element.product.price;
     });
     setCartSize(size);

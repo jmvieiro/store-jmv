@@ -1,7 +1,9 @@
+import React, { useContext, useEffect, useState } from "react";
+
+import { ShopContext } from "../ShopContext/ShopContext";
 import firebase from "firebase/app";
-import React, { useEffect, useState } from "react";
-import { updateStock } from "../../firebase/client";
 import { showTimerMessage } from "../../utils/helper";
+import { updateStock } from "../../firebase/client";
 
 export const CartContext = React.createContext();
 
@@ -9,6 +11,7 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartSize, setCartSize] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+  const { products, setProducts } = useContext(ShopContext);
 
   function getFrom(id) {
     return cart.find((p) => p.product.id === id);
@@ -31,11 +34,12 @@ export const CartProvider = ({ children }) => {
 
   function addItem(obj, qty, update) {
     if (isInCart(obj.id)) {
-      for (var i in cart) {
-        if (cart[i].product.id === obj.id) {
-          if (update) cart[i].qty = qty;
-          else if (cart[i].qty + qty <= cart[i].product.stock) {
-            cart[i].qty += qty;
+      let aux = [...cart];
+      for (var i in aux) {
+        if (aux[i].product.id === obj.id) {
+          if (update) aux[i].qty = qty;
+          else if (aux[i].qty + qty <= aux[i].product.stock) {
+            aux[i].qty += qty;
             showTimerMessage(
               `😎 El producto ya estaba en el carrito. La cantidad del mismo ha sido actualizada.`,
               "info"
@@ -43,7 +47,7 @@ export const CartProvider = ({ children }) => {
           } else {
             showTimerMessage(
               `😱 El stock disponible es ${
-                cart[i].product.stock - cart[i].qty
+                aux[i].product.stock - aux[i].qty
               }. Ingresá una cantidad menor.`,
               "error"
             );
@@ -52,15 +56,15 @@ export const CartProvider = ({ children }) => {
           break;
         }
       }
-      setCart(cart);
-      updateCart(cart);
+      setCart(aux);
     } else {
-      cart.push({
-        product: obj,
-        qty: qty,
-      });
-      setCart(cart);
-      updateCart(cart);
+      setCart([
+        ...cart,
+        {
+          product: obj,
+          qty: qty,
+        },
+      ]);
     }
   }
 
@@ -68,7 +72,6 @@ export const CartProvider = ({ children }) => {
     let aux = cart.filter(function (obj) {
       return obj.product.id !== id;
     });
-    updateCart(aux);
     setCart(aux);
   }
 
@@ -91,7 +94,14 @@ export const CartProvider = ({ children }) => {
       total: cartTotal,
     };
     return updateStock(order).then((response) => {
-      if (response === "ok") clear();
+      if (response === "ok") {
+        products.forEach((item) => {
+          let aux = order.detail.find((i) => i.idProduct === item.id);
+          if (aux) item.stock -= aux.qty;
+        });
+        setProducts(products);
+        clear();
+      }
       return response;
     });
   };
@@ -99,15 +109,16 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const localCart = localStorage.getItem("cart");
     if (!localCart) localStorage.setItem("cart", JSON.stringify([]));
-    else {
-      updateCart(JSON.parse(localCart));
-      setCart(JSON.parse(localCart));
-    }
+    else setCart(JSON.parse(localCart));
   }, []);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart, cartSize, cartTotal]);
+
+  useEffect(() => {
+    updateCart(cart);
+  }, [cart]);
 
   return (
     <CartContext.Provider

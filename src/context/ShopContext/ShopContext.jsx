@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Loader } from "../../components/Loader/Loader";
 import { getCategories, getProducts } from "../../firebase/client";
+
+import { Loader } from "../../components/Loader/Loader";
 
 export const ShopContext = React.createContext();
 
@@ -19,7 +20,7 @@ export const ShopProvider = ({ children }) => {
   }, []);
 
   return (
-    <ShopContext.Provider value={{ categories, products }}>
+    <ShopContext.Provider value={{ categories, products, setProducts }}>
       {loading ? <Loader /> : children}
     </ShopContext.Provider>
   );
